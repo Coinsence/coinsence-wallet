@@ -1,0 +1,7 @@
+{
+  "name": "QRScannerNative",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
