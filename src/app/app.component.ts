@@ -18,7 +18,6 @@ export class MyApp {
       splashScreen.hide();
 
       //if an imported, scanned or created wallet exist
-      alert(localStorage.getItem("isWallet"));
       if(localStorage.getItem("isWallet") == "true") {
         this.rootPage = 'HomePage';
       }
