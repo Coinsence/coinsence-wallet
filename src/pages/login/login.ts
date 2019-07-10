@@ -33,7 +33,7 @@ export class LoginPage {
           localStorage.setItem("wallet", JSON.stringify(wallet));
           localStorage.setItem("isWallet", "true");
 
-          this.navCtrl.push('HomePage');
+          this.navCtrl.push('TabsPage');
         }
         else {
           alert("Invalid address");
@@ -53,7 +53,7 @@ export class LoginPage {
 
     let createWalletModal = this.modalController.create('CreateWalletPage', { wallet: wallet }, { showBackdrop: false, enableBackdropDismiss: false});
     createWalletModal.onDidDismiss(() => {
-      this.navCtrl.push('HomePage');
+      this.navCtrl.push('TabsPage');
     });
     createWalletModal.present();
   }

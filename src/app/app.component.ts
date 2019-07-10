@@ -19,7 +19,7 @@ export class MyApp {
 
       //if an imported, scanned or created wallet exist
       if(localStorage.getItem("isWallet") == "true") {
-        this.rootPage = 'HomePage';
+        this.rootPage = 'TabsPage';
       }
       else {
         this.rootPage = 'LoginPage';
