@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {ModalController, NavController, ToastController} from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -8,14 +9,7 @@ import {ModalController, NavController, ToastController} from 'ionic-angular';
 export class HomePage {
 
   constructor(
-    public navCtrl: NavController,
-    private modalController: ModalController,
-    private toastCtrl: ToastController
+    public navCtrl: NavController
   ) {
-  }
-
-  scanOnclick() {
-    let modal = this.modalController.create('ScanQrPage');
-    modal.present();
   }
 }
