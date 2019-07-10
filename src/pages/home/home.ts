@@ -8,8 +8,12 @@ import { IonicPage, NavController } from 'ionic-angular';
 })
 export class HomePage {
 
+  public wallet: any;
+
   constructor(
     public navCtrl: NavController
   ) {
+    this.wallet = JSON.parse(localStorage.getItem('wallet'));
+    console.log(this.wallet);
   }
 }
