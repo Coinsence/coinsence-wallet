@@ -31,4 +31,13 @@ export class WalletProvider {
     return signer;
   }
 
+  public checkAddress(address: string) : boolean {
+    try {
+      ethers.utils.getAddress(address);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
 }

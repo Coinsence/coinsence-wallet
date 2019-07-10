@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController, ViewController} from 'ionic-angular';
-import {QRScanner, QRScannerStatus} from "@ionic-native/qr-scanner";
-import {Subscriber} from "rxjs/Subscriber";
+import { IonicPage, NavController, NavParams, ToastController, ViewController } from 'ionic-angular';
+import { QRScanner, QRScannerStatus } from "@ionic-native/qr-scanner";
 
 @IonicPage()
 @Component({
@@ -9,15 +8,18 @@ import {Subscriber} from "rxjs/Subscriber";
   templateUrl: 'scan-qr.html',
 })
 export class ScanQrPage {
+
   private isBackMode: boolean = true;
   private isFlashLightOn: boolean = false;
   private scanSub: any;
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public viewController: ViewController,
-              public qrScanner: QRScanner,
-              public toastCtrl: ToastController) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public viewController: ViewController,
+    public qrScanner: QRScanner,
+    public toastCtrl: ToastController
+  ) {
   }
 
 
@@ -32,7 +34,7 @@ export class ScanQrPage {
 
           // start scanning
           this.scanSub = this.qrScanner.scan().subscribe((text: string) => {
-            this.presentToast(text);
+            this.viewController.dismiss(text);
           });
 
           // show camera preview
@@ -107,6 +109,7 @@ export class ScanQrPage {
     this.scanSub.unsubscribe(); // stop scanning
     this.hideCamera();
   }
+
   showCamera() {
     (window.document.querySelector('ion-app') as HTMLElement).classList.add('cameraView');
   }

@@ -5,15 +5,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import {QRScanner} from "@ionic-native/qr-scanner";
+
+import { QRScanner } from "@ionic-native/qr-scanner";
 import { EtherProvider } from '../providers/ether/ether';
 import { WalletProvider } from '../providers/wallet/wallet';
 
 @NgModule({
   declarations: [
-    MyApp,
-    HomePage
+    MyApp
   ],
   imports: [
     BrowserModule,
@@ -21,8 +20,7 @@ import { WalletProvider } from '../providers/wallet/wallet';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    HomePage
+    MyApp
   ],
   /** Add QRScanner in the provider array **/
   providers: [
