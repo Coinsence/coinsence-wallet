@@ -40,4 +40,8 @@ export class WalletProvider {
     }
   }
 
+  public checkSumAddress(address: string): string {
+    return ethers.utils.getAddress(address);
+  }
+
 }

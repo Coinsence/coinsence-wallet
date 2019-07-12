@@ -1,0 +1,25 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Detail</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="danger" (click)="closeModal()">
+        <ion-icon ios="md-exit" md="md-exit"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <p>Token name {{ tx.tokenName }}</p>
+  <p>Token symbol {{ tx.tokenSymbol }}</p>
+  <p>from {{ tx.from }}</p>
+  <p>To {{ tx.to }}</p>
+  <p>Amount {{ tx.value }}</p>
+  <p>Date {{ tx.timeStamp * 1000 | date: 'dd/MM/yyyy' }} {{ tx.timeStamp * 1000 | date: 'shortTime' }}</p>
+  <p>Gas limit {{ tx.gas }}</p>
+  <p>Gas used {{ tx.gasUsed }}</p>
+  <p>Gas price {{ tx.gasPrice }}</p>
+</ion-content>
