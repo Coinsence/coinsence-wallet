@@ -28,7 +28,7 @@ export class LoginPage {
         const address = ethAddress.split(":").pop();
 
         if(this.walletProvider.checkAddress(address)) {
-          const wallet = { address: address };
+          const wallet = { signingKey: { address: address } };
 
           localStorage.setItem("wallet", JSON.stringify(wallet));
           localStorage.setItem("isWallet", "true");
