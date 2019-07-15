@@ -11,18 +11,16 @@ export class EtherscanProvider {
     console.log('Hello EtherscanProvider Provider');
   }
 
-  //TODO need pagination
   //Don't know if this return also failed transactions
-  public async getAllTokenTransfer(walletAddress: string): Promise<{status: string, message: string, result: Array<Object>}> {
-    let getUrl = `${environment.apiEtherscanRinkeby.url}?module=account&action=tokentx&address=${walletAddress}&sort=desc&apikey=${environment.apiEtherscanRinkeby.apiKey}`;
+  public async getAllTokenTransfer(walletAddress: string, page: number, offset: number): Promise<{status: string, message: string, result: Array<Object>}> {
+    let getUrl = `${environment.apiEtherscanRinkeby.url}?module=account&action=tokentx&address=${walletAddress}&sort=desc&page=${page}&offset=${offset}&apikey=${environment.apiEtherscanRinkeby.apiKey}`;
 
     return this.http.get(getUrl).toPromise() as Promise<{status: string, message: string, result: Array<Object>}>;
   }
 
-  //TODO need pagination
   //Don't know if this return also failed transactions
-  public async getContractTokenTransfer(walletAddress: string, contractAddress: string): Promise<{status: string, message: string, result: Array<Object>}> {
-    let getUrl = `${environment.apiEtherscanRinkeby.url}?module=account&action=tokentx&contractaddress=${contractAddress}&address=${walletAddress}&sort=desc&apikey=${environment.apiEtherscanRinkeby.apiKey}`;
+  public async getContractTokenTransfer(walletAddress: string, contractAddress: string, page: number, offset: number): Promise<{status: string, message: string, result: Array<Object>}> {
+    let getUrl = `${environment.apiEtherscanRinkeby.url}?module=account&action=tokentx&contractaddress=${contractAddress}&address=${walletAddress}&sort=desc&page=${page}&offset=${offset}&apikey=${environment.apiEtherscanRinkeby.apiKey}`;
 
     return this.http.get(getUrl).toPromise() as Promise<{status: string, message: string, result: Array<Object>}>;
   }
@@ -33,10 +31,9 @@ export class EtherscanProvider {
     return this.http.get(getUrl).toPromise() as Promise<{status: string, message: string, result: Array<Object>}>;
   }
 
-  //TODO need pagination
   //Don't know if this return also failed transactions
-  public async getTransactions(walletAddress: string): Promise<{status: string, message: string, result: Array<Object>}> {
-    let getUrl = `${environment.apiEtherscanRinkeby.url}?module=account&action=txlist&address=${walletAddress}&sort=desc&apikey=${environment.apiEtherscanRinkeby.apiKey}`;
+  public async getTransactions(walletAddress: string, page: number, offset: number): Promise<{status: string, message: string, result: Array<Object>}> {
+    let getUrl = `${environment.apiEtherscanRinkeby.url}?module=account&action=txlist&address=${walletAddress}&sort=desc&page=${page}&offset=${offset}&apikey=${environment.apiEtherscanRinkeby.apiKey}`;
 
     return this.http.get(getUrl).toPromise() as Promise<{status: string, message: string, result: Array<Object>}>;
   }

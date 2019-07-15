@@ -26,4 +26,9 @@
       </ion-grid>
     </ion-item>
   </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
 </ion-content>
