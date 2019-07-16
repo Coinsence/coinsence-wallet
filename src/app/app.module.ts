@@ -11,6 +11,7 @@ import { QRScanner } from "@ionic-native/qr-scanner";
 import { EtherProvider } from '../providers/ether/ether';
 import { WalletProvider } from '../providers/wallet/wallet';
 import { EtherscanProvider } from '../providers/etherscan/etherscan';
+import { TokenProvider } from '../providers/token/token';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { EtherscanProvider } from '../providers/etherscan/etherscan';
     QRScanner,
     EtherProvider,
     WalletProvider,
-    EtherscanProvider
+    EtherscanProvider,
+    TokenProvider
   ]
 })
 export class AppModule {}

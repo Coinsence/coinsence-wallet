@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+//default tokens list
+import { defaultTokens } from '../utils/default-tokens';
 
 @Component({
   templateUrl: 'app.html'
@@ -25,6 +27,7 @@ export class MyApp {
         this.rootPage = 'LoginPage';
       }
 
+      localStorage.setItem("defaultTokens", JSON.stringify(defaultTokens));
     });
   }
 }
