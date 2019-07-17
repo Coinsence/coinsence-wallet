@@ -11,10 +11,10 @@ export class BlockscoutProvider {
     console.log('Hello BlockscoutProvider Provider');
   }
 
-  public async getTokenInfo(tokenAddress: string) {
+  public async getTokenInfo(tokenAddress: string): Promise<{status: string, message: string, result: any}> {
     let getUrl = `${environment.apiBlockscoutRinkeby.url}?module=token&action=getToken&contractaddress=${tokenAddress}`;
 
-    return this.http.get(getUrl).toPromise();
+    return this.http.get(getUrl).toPromise() as Promise<{status: string, message: string, result: any}>;;
   }
 
 }
