@@ -20,27 +20,28 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <p>{{ token.name }}</p>
+            <p>{{ token.symbol }}</p>
           </ion-col>
           <ion-col>
-            <p>{{ tokensBalances[i] }} {{ token.symbol }}</p>
+            <p>{{ token.name }} {{ tokensBalances[i] }} </p>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-item>
   </ion-list>
 
-  <ion-fab bottom right margin>
-      <button ion-fab><ion-icon name="add"></ion-icon></button>
-      <!--
+  <ion-fab bottom right margin #fab>
+      <button ion-fab>
+        <ion-icon name="add"></ion-icon>
+      </button>
       <ion-fab-list side="top">
-        <button (click)="toggleFlashLight()" ion-fab><ion-icon name="flash">
-
-        </ion-icon></button>
-        <button ion-fab (click)="toggleCamera()"><ion-icon name="reverse-camera"></ion-icon> </button>
-
+        <button ion-fab (click)="addTokenModal(fab)">
+          <ion-icon name="create"></ion-icon>
+        </button>
+        <button ion-fab (click)="scanOnclick(fab)">
+          <ion-icon name="camera"></ion-icon>
+        </button>
       </ion-fab-list>
-    -->
     </ion-fab>
 
 </ion-content>

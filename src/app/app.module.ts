@@ -12,6 +12,8 @@ import { EtherProvider } from '../providers/ether/ether';
 import { WalletProvider } from '../providers/wallet/wallet';
 import { EtherscanProvider } from '../providers/etherscan/etherscan';
 import { TokenProvider } from '../providers/token/token';
+import { EthplorerProvider } from '../providers/ethplorer/ethplorer';
+import { BlockscoutProvider } from '../providers/blockscout/blockscout';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { TokenProvider } from '../providers/token/token';
     EtherProvider,
     WalletProvider,
     EtherscanProvider,
-    TokenProvider
+    TokenProvider,
+    EthplorerProvider,
+    BlockscoutProvider
   ]
 })
 export class AppModule {}
