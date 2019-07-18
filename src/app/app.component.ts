@@ -24,10 +24,9 @@ export class MyApp {
         this.rootPage = 'TabsPage';
       }
       else {
+        localStorage.setItem("defaultTokens", JSON.stringify(defaultTokens));
         this.rootPage = 'LoginPage';
       }
-
-      localStorage.setItem("defaultTokens", JSON.stringify(defaultTokens));
     });
   }
 }

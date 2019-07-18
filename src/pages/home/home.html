@@ -30,13 +30,15 @@
     </ion-item>
   </ion-list>
 
-  <ion-fab bottom right margin>
-      <button ion-fab><ion-icon name="add"></ion-icon></button>
+  <ion-fab bottom right margin #fab>
+      <button ion-fab>
+        <ion-icon name="add"></ion-icon>
+      </button>
       <ion-fab-list side="top">
-        <button ion-fab>
+        <button ion-fab (click)="addTokenModal(fab)">
           <ion-icon name="create"></ion-icon>
         </button>
-        <button ion-fab (click)="scanOnclick()">
+        <button ion-fab (click)="scanOnclick(fab)">
           <ion-icon name="camera"></ion-icon>
         </button>
       </ion-fab-list>

@@ -8,5 +8,21 @@
 
 
 <ion-content padding>
-
+  <ion-list>
+    <ion-searchbar placeholder="Token Contract Address" type="string" [(ngModel)]="token.contractAddress" (ionInput)="onContractInput($event)"></ion-searchbar>
+    <ion-item>
+      <ion-label floating>Token Name</ion-label>
+      <ion-input readonly type="string" [(ngModel)]="token.name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Token Symbol</ion-label>
+      <ion-input readonly type="string" [(ngModel)]="token.symbol"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Decimals of Precision</ion-label>
+      <ion-input readonly type="string" [(ngModel)]="token.decimals"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button ion-button color="primary" [disabled]="token.contractAddress === ''" (click)="addToken()">Add</button>
+  <button ion-button color="secondary" (click)="cancel()">Cancel</button>
 </ion-content>

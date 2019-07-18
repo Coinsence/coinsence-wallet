@@ -40,7 +40,7 @@ export class LoginPage {
         }
       }
       else {
-        alert("Invalid address");
+        alert("No address detected!");
       }
 
     })

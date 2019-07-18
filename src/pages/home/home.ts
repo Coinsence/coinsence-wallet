@@ -72,7 +72,9 @@ export class HomePage {
     }, 2000);
   }
 
-  public scanOnclick() {
+  public scanOnclick(fab: any) {
+    fab.close();
+
     let scanQrModal = this.modalController.create('ScanQrPage');
     scanQrModal.onDidDismiss(async(ethAddress) => {
       if(ethAddress != undefined) {
@@ -100,34 +102,18 @@ export class HomePage {
         }
       }
       else {
-        alert("Invalid address");
+        alert("No address detected!");
       }
     })
     scanQrModal.present();
   }
 
-  addTokenModal() {
-    let createWalletModal = this.modalController.create('AddTokenPage', { showBackdrop: false, enableBackdropDismiss: false});
-    createWalletModal.onDidDismiss(async(tokenAddress) => {
-      //get token info
-      let tokenInfo = await this.blockscoutProvider.getTokenInfo(tokenAddress);
+  addTokenModal(fab: any) {
+    fab.close();
 
-      if(tokenInfo.status != "0") {
-        //update default tokens item
-        let token = {
-          contractAddress: tokenInfo.result.contractAddress,
-          decimals: tokenInfo.result.decimals,
-          name: tokenInfo.result.name,
-          symbol: tokenInfo.result.symbol
-        };
-        this.tokens.push(token);
-        localStorage.setItem("defaultTokens", JSON.stringify(this.tokens));
-
-        await this.loadTokensBalances();
-      }
-      else {
-        alert(tokenInfo.message);
-      }
+    let createWalletModal = this.modalController.create('AddTokenPage', { defaultTokens: this.tokens }, { showBackdrop: false, enableBackdropDismiss: false});
+    createWalletModal.onDidDismiss(async() => {
+      await this.loadTokens();
     });
     createWalletModal.present();
   }

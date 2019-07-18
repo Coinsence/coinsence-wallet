@@ -34,6 +34,7 @@ export class ScanQrPage {
 
           // start scanning
           this.scanSub = this.qrScanner.scan().subscribe((text: string) => {
+            console.log(text);
             this.viewController.dismiss(text);
           });
 
@@ -59,9 +60,7 @@ export class ScanQrPage {
     this.viewController.dismiss();
   }
 
-
   toggleFlashLight(){
-
     /** Default isFlashLightOn is false ,
      * enable it if false **/
 
@@ -74,6 +73,7 @@ export class ScanQrPage {
     }
 
   }
+
   toggleCamera(){
     /** Toggle Camera , Default is isBackMode is true , toggle
      * to false to enable front camera and vice versa.
@@ -102,7 +102,6 @@ export class ScanQrPage {
 
     toast.present();
   }
-
 
   ionViewWillLeave(){
     this.qrScanner.hide(); // hide camera preview
