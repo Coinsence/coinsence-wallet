@@ -31,6 +31,13 @@ $tabs-background : #202020;
 $tabs-tab-color-inactive:    #5c5c5c;
 $tabs-tab-color-active:      #ffffff;
 
+//fab button customization
+$fab-md-background-color: #f2af57;
+$fab-md-background-color-activated	: white;
+$fab-ios-background-color: #f2af57;
+$fab-ios-background-color-activated	: white;
+
+
 // Named Color Variables
 // --------------------------------------------------
 // Named colors makes it easy to reuse colors on various components.
@@ -44,8 +51,7 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222,
-  fab-color:  #f2af57
+  dark:       #222
 );
 
 $content-ios-transition-background: transparent;
