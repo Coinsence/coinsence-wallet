@@ -24,6 +24,7 @@ export class MyApp {
         this.rootPage = 'TabsPage';
       }
       else {
+        localStorage.setItem("network", "rinkeby");
         localStorage.setItem("defaultTokens", JSON.stringify(defaultTokens));
         this.rootPage = 'LoginPage';
       }
