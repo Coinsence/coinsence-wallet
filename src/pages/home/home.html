@@ -17,16 +17,12 @@
 
   <ion-list>
     <ion-item *ngFor="let token of tokens; let i=index">
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <p>{{ token.symbol }}</p>
-          </ion-col>
-          <ion-col>
-            <p>{{ token.name }} {{ tokensBalances[i] }} </p>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <ion-avatar item-start>
+        <!--<img src="img/my-avatar.png">-->
+        <p id="tokenSymbol">{{ token.symbol}}</p>
+      </ion-avatar>
+      <p id="tokenName">{{ token.name }}</p>
+      <p item-end id="balance">{{ tokensBalances[i] }}</p>
     </ion-item>
   </ion-list>
 
@@ -35,10 +31,10 @@
         <ion-icon name="add"></ion-icon>
       </button>
       <ion-fab-list side="top">
-        <button ion-fab (click)="addTokenModal(fab)">
+        <button ion-fab (click)="addTokenModal(fab)" color="secondary">
           <ion-icon name="create"></ion-icon>
         </button>
-        <button ion-fab (click)="scanOnclick(fab)">
+        <button ion-fab (click)="scanOnclick(fab)" color="primary">
           <ion-icon name="camera"></ion-icon>
         </button>
       </ion-fab-list>

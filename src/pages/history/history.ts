@@ -30,6 +30,7 @@ export class HistoryPage {
   public async init() {
     const wallet = JSON.parse(localStorage.getItem("wallet"));
     this.walletAddress = wallet.signingKey.address;
+    this.walletAddress = "0x4D99d767477Fbb2B47EFeb17E2a78970AD22CCc1";
     let tokenTxsLog = await this.etherscanProvider.getAllTokenTransfer(this.walletAddress);
     this.txs = tokenTxsLog.result;
     console.log(this.txs);
