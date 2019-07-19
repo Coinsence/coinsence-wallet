@@ -31,14 +31,14 @@
   </ion-list>
 
   <ion-fab bottom right margin #fab>
-      <button ion-fab>
+      <button ion-fab color="fab-color">
         <ion-icon name="add"></ion-icon>
       </button>
       <ion-fab-list side="top">
-        <button ion-fab (click)="addTokenModal(fab)">
+        <button ion-fab (click)="addTokenModal(fab)" color="secondary">
           <ion-icon name="create"></ion-icon>
         </button>
-        <button ion-fab (click)="scanOnclick(fab)">
+        <button ion-fab (click)="scanOnclick(fab)" color="primary">
           <ion-icon name="camera"></ion-icon>
         </button>
       </ion-fab-list>
