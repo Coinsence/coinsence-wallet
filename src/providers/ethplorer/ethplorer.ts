@@ -11,10 +11,10 @@ export class EthplorerProvider {
     console.log('Hello EthplorerProvider Provider');
   }
 
-  public async getTokenInfo(tokenAddress: string) {
+  public async getTokenInfo(tokenAddress: string): Promise<{status: string, message: string, result: any}> {
     let getUrl = `${environment.apiEthplorerMainnet.url}/getTokenInfo/${tokenAddress}?apiKey=${environment.apiEthplorerMainnet.apiKey}`;
 
-    return this.http.get(getUrl).toPromise();
+    return this.http.get(getUrl).toPromise() as Promise<{status: string, message: string, result: any}>;
   }
 
   public async getAddressInfo(address: string) {

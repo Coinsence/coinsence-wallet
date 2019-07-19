@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, ModalController } from 'ionic-angular';
 import { EtherProvider } from '../../providers/ether/ether';
 import { TokenProvider } from '../../providers/token/token';
+import { EthplorerProvider } from '../../providers/ethplorer/ethplorer';
 import { BlockscoutProvider } from '../../providers/blockscout/blockscout';
 
 @IonicPage()
@@ -15,7 +16,8 @@ export class HomePage {
 
   public wallet: any;
   public tokens: Array<{
-    contractAddress: string,
+    mainnetAddress: string,
+    rinkebyAddress: string,
     name: string,
     symbol: string,
     decimals: number
@@ -27,6 +29,7 @@ export class HomePage {
     public modalController: ModalController,
     private etherProvider: EtherProvider,
     private tokenProvider: TokenProvider,
+    private ethplorerProvider: EthplorerProvider,
     private blockscoutProvider: BlockscoutProvider
   ) {
   }
@@ -53,12 +56,32 @@ export class HomePage {
   }
 
   private async loadTokensBalances() {
-    console.log(this.tokens);
-    for(let i=0; i<this.tokens.length; i++) {
-      this.tokenProvider.getBalance(this.wallet.signingKey.address, this.tokens[i].contractAddress, this.provider).then(tokenBalance => {
-        this.tokensBalances.push(tokenBalance);
-      });
+    if(this.provider.network.chainId == 1) {
+      for(let i=0; i<this.tokens.length; i++) {
+        if(this.tokens[i].mainnetAddress != null) {
+          this.tokenProvider.getBalance(this.wallet.signingKey.address, this.tokens[i].mainnetAddress, this.provider).then(tokenBalance => {
+            this.tokensBalances.push(tokenBalance);
+          });
+        }
+        else {
+          this.tokens.splice(i);
+        }
+      }
     }
+    if(this.provider.network.chainId == 4) {
+      for(let i=0; i<this.tokens.length; i++) {
+        if(this.tokens[i].rinkebyAddress != null) {
+          this.tokenProvider.getBalance(this.wallet.signingKey.address, this.tokens[i].rinkebyAddress, this.provider).then(tokenBalance => {
+            this.tokensBalances.push(tokenBalance);
+          });
+        }
+        else {
+          this.tokens.splice(i);
+        }
+      }
+    }
+
+    console.log(this.tokens);
   }
 
   doRefresh(refresher) {
@@ -82,23 +105,46 @@ export class HomePage {
         const tokenAddress = ethAddress.split(":").pop();
 
         //get token info
-        let tokenInfo = await this.blockscoutProvider.getTokenInfo(tokenAddress);
+        let tokenInfo: any;
+        if(this.provider.network.chainId == 1) {
+          tokenInfo = await this.ethplorerProvider.getTokenInfo(tokenAddress);
+          if(tokenInfo.status != "0") {
+            let token = {
+              mainnetAddress: tokenInfo.result.contractAddress,
+              rinkebyAddress: null,
+              decimals: tokenInfo.result.decimals,
+              name: tokenInfo.result.name,
+              symbol: tokenInfo.result.symbol
+            };
 
-        if(tokenInfo.status != "0") {
-          //update default tokens item
-          let token = {
-            contractAddress: tokenInfo.result.contractAddress,
-            decimals: tokenInfo.result.decimals,
-            name: tokenInfo.result.name,
-            symbol: tokenInfo.result.symbol
-          };
-          this.tokens.push(token);
-          localStorage.setItem("defaultTokens", JSON.stringify(this.tokens));
+            this.tokens.push(token);
+            localStorage.setItem("defaultTokens", JSON.stringify(this.tokens));
 
-          await this.loadTokensBalances();
+            await this.loadTokensBalances();
+          }
+          else {
+            alert(tokenInfo.message);
+          }
         }
-        else {
-          alert(tokenInfo.message);
+        else if (this.provider.network.chainId == 4) {
+          tokenInfo = await this.blockscoutProvider.getTokenInfo(tokenAddress);
+          if(tokenInfo.status != "0") {
+            let token = {
+              mainnetAddress: null,
+              rinkebyAddress: tokenInfo.result.contractAddressull,
+              decimals: tokenInfo.result.decimals,
+              name: tokenInfo.result.name,
+              symbol: tokenInfo.result.symbol
+            };
+
+            this.tokens.push(token);
+            localStorage.setItem("defaultTokens", JSON.stringify(this.tokens));
+
+            await this.loadTokensBalances();
+          }
+          else {
+            alert(tokenInfo.message);
+          }
         }
       }
       else {
