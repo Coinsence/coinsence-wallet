@@ -26,6 +26,10 @@ ion-app.cameraView, ion-app.cameraView ion-content, ion-app.cameraView .nav-deco
   background: transparent none !important;
 }
 
+// tabs bar customization
+$tabs-background : #202020;
+$tabs-tab-color-inactive:    #5c5c5c;
+$tabs-tab-color-active:      #ffffff;
 
 // Named Color Variables
 // --------------------------------------------------
