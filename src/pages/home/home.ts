@@ -54,10 +54,10 @@ export class HomePage {
 
   private async loadTokensBalances() {
     console.log(this.tokens);
+    this.tokensBalances = [];
     for(let i=0; i<this.tokens.length; i++) {
-      this.tokenProvider.getBalance(this.wallet.signingKey.address, this.tokens[i].contractAddress, this.provider).then(tokenBalance => {
-        this.tokensBalances.push(tokenBalance);
-      });
+      let tokenBalance = await this.tokenProvider.getBalance(this.wallet.signingKey.address, this.tokens[i].contractAddress, this.provider);
+      this.tokensBalances.push(tokenBalance);
     }
   }
 
@@ -76,7 +76,7 @@ export class HomePage {
     fab.close();
 
     let scanQrModal = this.modalController.create('ScanQrPage');
-    scanQrModal.onDidDismiss(async(ethAddress) => {
+    scanQrModal.onWillDismiss(async(ethAddress) => {
       if(ethAddress != undefined) {
         //get contract address
         const tokenAddress = ethAddress.split(":").pop();
@@ -95,7 +95,7 @@ export class HomePage {
           this.tokens.push(token);
           localStorage.setItem("defaultTokens", JSON.stringify(this.tokens));
 
-          await this.loadTokensBalances();
+          await this.loadTokens();
         }
         else {
           alert(tokenInfo.message);
@@ -112,7 +112,7 @@ export class HomePage {
     fab.close();
 
     let createWalletModal = this.modalController.create('AddTokenPage', { defaultTokens: this.tokens }, { showBackdrop: false, enableBackdropDismiss: false});
-    createWalletModal.onDidDismiss(async() => {
+    createWalletModal.onWillDismiss(async() => {
       await this.loadTokens();
     });
     createWalletModal.present();
