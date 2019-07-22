@@ -53,11 +53,9 @@ export class HomePage {
   }
 
   private async loadTokensBalances() {
-    console.log(this.tokens);
-    this.tokensBalances = [];
     for(let i=0; i<this.tokens.length; i++) {
       let tokenBalance = await this.tokenProvider.getBalance(this.wallet.signingKey.address, this.tokens[i].contractAddress, this.provider);
-      this.tokensBalances.push(tokenBalance);
+      this.tokensBalances[i] = tokenBalance;
     }
   }
 
