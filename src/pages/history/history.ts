@@ -43,4 +43,15 @@ export class HistoryPage {
     txDetailModal.present();
   }
 
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+
+    setTimeout(async() => {
+      this.init();
+
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
+  }
+
 }
