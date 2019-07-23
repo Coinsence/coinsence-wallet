@@ -26,6 +26,17 @@ ion-app.cameraView, ion-app.cameraView ion-content, ion-app.cameraView .nav-deco
   background: transparent none !important;
 }
 
+// tabs bar customization
+$tabs-background : #202020;
+$tabs-tab-color-inactive:    #5c5c5c;
+$tabs-tab-color-active:      #ffffff;
+
+//fab button customization
+$fab-md-background-color: #f2af57;
+$fab-md-background-color-activated	: white;
+$fab-ios-background-color: #f2af57;
+$fab-ios-background-color-activated	: white;
+
 
 // Named Color Variables
 // --------------------------------------------------

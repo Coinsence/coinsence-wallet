@@ -51,12 +51,24 @@ export class HistoryPage {
   }
 
   doInfinite(infiniteScroll) {
-    console.log("scroll worked!");
+    console.log("scroll down worked!");
     setTimeout(() => {
       this.limit += 10;
       this.loadTransactionsHistory();
       infiniteScroll.complete();
     }, 500);
+  }
+
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+
+    setTimeout(async() => {
+      this.limit = 10;
+      this.loadTransactionsHistory();
+
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
   }
 
 }

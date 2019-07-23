@@ -7,5 +7,37 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-item *ngFor="let token of tokens; let i=index">
+      <ion-avatar item-start>
+        <!--<img src="img/my-avatar.png">-->
+        <p id="tokenSymbol">{{ token.symbol}}</p>
+      </ion-avatar>
+      <p id="tokenName">{{ token.name }}</p>
+      <p item-end id="balance">{{ tokensBalances[i] }}</p>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab bottom right margin #fab>
+      <button ion-fab>
+        <ion-icon name="add"></ion-icon>
+      </button>
+      <ion-fab-list side="top">
+        <button ion-fab (click)="addTokenModal(fab)" color="secondary">
+          <ion-icon name="create"></ion-icon>
+        </button>
+        <button ion-fab (click)="scanOnclick(fab)" color="primary">
+          <ion-icon name="camera"></ion-icon>
+        </button>
+      </ion-fab-list>
+    </ion-fab>
 
 </ion-content>
