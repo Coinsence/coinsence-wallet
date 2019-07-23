@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, ModalController, AlertController } from 'ionic-angular';
 import { EtherProvider } from '../../providers/ether/ether';
 import { TokenProvider } from '../../providers/token/token';
 import { BlockscoutProvider } from '../../providers/blockscout/blockscout';
@@ -25,6 +25,7 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public modalController: ModalController,
+    private alertCtrl: AlertController,
     private etherProvider: EtherProvider,
     private tokenProvider: TokenProvider,
     private blockscoutProvider: BlockscoutProvider
@@ -49,6 +50,7 @@ export class HomePage {
 
   private async loadTokens() {
     this.tokens = JSON.parse(localStorage.getItem("defaultTokens"));
+    console.log(this.tokens);
     await this.loadTokensBalances();
   }
 
@@ -116,4 +118,37 @@ export class HomePage {
     createWalletModal.present();
   }
 
+  public showRemoveAlert(e, tokenIndex: number) {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("remove action triggered");
+
+    let alert = this.alertCtrl.create({
+      title: 'Confirm remove',
+      message: 'Do you want to remove this token?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Remove',
+          handler: () => {
+            this.removeToken(tokenIndex);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  public async removeToken(tokenIndex: number) {
+    this.tokens.splice(tokenIndex, 1);
+    localStorage.setItem("defaultTokens", JSON.stringify(this.tokens));
+
+    await this.loadTokens();
+  }
 }
