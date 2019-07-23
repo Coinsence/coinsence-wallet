@@ -12,6 +12,8 @@ export class HistoryPage {
 
   public walletAddress: string;
   public txs: any;
+  public page: number = 1;
+  public limit: number = 10;
 
   constructor(
     public navCtrl: NavController,
@@ -27,10 +29,14 @@ export class HistoryPage {
     this.init();
   }
 
-  public async init() {
+  init() {
     const wallet = JSON.parse(localStorage.getItem("wallet"));
     this.walletAddress = wallet.signingKey.address;
-    let tokenTxsLog = await this.etherscanProvider.getAllTokenTransfer(this.walletAddress);
+    this.loadTransactionsHistory();
+  }
+
+  async loadTransactionsHistory() {
+    let tokenTxsLog = await this.etherscanProvider.getAllTokenTransfer(this.walletAddress, this.page, this.limit);
     this.txs = tokenTxsLog.result;
     console.log(this.txs);
   }
@@ -38,16 +44,27 @@ export class HistoryPage {
   showDetail(tx: any) {
     let txDetailModal = this.modalCtrl.create('TransactionDetailPage', { tx: tx });
     txDetailModal.onDidDismiss(() => {
-      this.init();
+      this.limit = 10;
+      this.loadTransactionsHistory();
     });
     txDetailModal.present();
+  }
+
+  doInfinite(infiniteScroll) {
+    console.log("scroll down worked!");
+    setTimeout(() => {
+      this.limit += 10;
+      this.loadTransactionsHistory();
+      infiniteScroll.complete();
+    }, 500);
   }
 
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
 
     setTimeout(async() => {
-      this.init();
+      this.limit = 10;
+      this.loadTransactionsHistory();
 
       console.log('Async operation has ended');
       refresher.complete();
