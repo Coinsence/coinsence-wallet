@@ -5,6 +5,12 @@ const defaultTokens = [
     symbol: "CCC",
     decimals: 18
   },
+  {
+    contractAddress: "0x0c96a76fc3208fed50062d259a3eae9fa05f196f",
+    name: "Kredits",
+    symbol: "₭S",
+    decimals: 18
+  }
 ];
 
 export { defaultTokens };
