@@ -36,8 +36,7 @@ export class HistoryPage {
   }
 
   async loadTransactionsHistory() {
-    //let tokenTxsLog = await this.etherscanProvider.getAllTokenTransfer(this.walletAddress, this.page, this.limit);
-    let tokenTxsLog = await this.etherscanProvider.getTransactions(this.walletAddress, this.page, this.limit);
+    let tokenTxsLog = await this.etherscanProvider.getAllTokenTransfer(this.walletAddress, this.page, this.limit);
     this.txs = tokenTxsLog.result;
     console.log(this.txs);
   }
