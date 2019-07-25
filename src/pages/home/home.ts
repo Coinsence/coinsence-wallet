@@ -96,6 +96,9 @@ export class HomePage {
           localStorage.setItem("defaultTokens", JSON.stringify(this.tokens));
 
           await this.loadTokens();
+
+          //Create event listener for added token
+          this.tokenProvider.setTokenListener(this.wallet.signingKey.address, this.tokens, this.provider);
         }
         else {
           alert(tokenInfo.message);
@@ -114,6 +117,9 @@ export class HomePage {
     let createWalletModal = this.modalController.create('AddTokenPage', { defaultTokens: this.tokens }, { showBackdrop: false, enableBackdropDismiss: false});
     createWalletModal.onWillDismiss(async() => {
       await this.loadTokens();
+
+      //Create event listener for added token
+      this.tokenProvider.setTokenListener(this.wallet.signingKey.address, this.tokens, this.provider);
     });
     createWalletModal.present();
   }
