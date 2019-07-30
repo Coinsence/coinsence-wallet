@@ -9,7 +9,7 @@ git clone https://github.com/Coinsence/coinsence-wallet.git
 cd coinsence-wallet
 ```
 
-Setup API's [keys](environments/environment.ts)
+Setup API's [keys](src/environments/environment.ts)
 
 ```sh
   apiEtherscanRinkeby: {
