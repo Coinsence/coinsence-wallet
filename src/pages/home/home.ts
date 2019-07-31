@@ -3,6 +3,7 @@ import { IonicPage, NavController, ModalController, AlertController } from 'ioni
 import { EtherProvider } from '../../providers/ether/ether';
 import { TokenProvider } from '../../providers/token/token';
 import { BlockscoutProvider } from '../../providers/blockscout/blockscout';
+import * as ColorHash from 'color-hash/dist/color-hash.js'
 
 @IonicPage()
 @Component({
@@ -21,6 +22,7 @@ export class HomePage {
     decimals: number
   }>;
   public tokensBalances: Array<number> = [];
+  private colorHash;
 
   constructor(
     public navCtrl: NavController,
@@ -38,6 +40,8 @@ export class HomePage {
     this.getProvider();
     this.loadWallet();
     this.loadTokens();
+
+    this.colorHash = new ColorHash();
   }
 
   private getProvider() {
@@ -150,5 +154,12 @@ export class HomePage {
     localStorage.setItem("defaultTokens", JSON.stringify(this.tokens));
 
     await this.loadTokens();
+  }
+
+  symbolBgColor(str: string) {
+
+    let color = this.colorHash.hex(str);
+
+    return color;
   }
 }
