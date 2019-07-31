@@ -1,15 +1,22 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Coinsence login</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
 
 <ion-content padding>
-  <ion-list>
-    <button ion-button block (click)="createWalletModal()">Create wallet</button>
-    <button ion-button block (click)="scanOnclick()">Scan wallet</button>
-  </ion-list>
+
+  <div class="header">
+    <img src="assets/imgs/logo-coinsence.svg">
+  </div>
+  <div class="body">
+    <h5>Welcome to Coinsence Wallet</h5>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur.</p>
+    <ion-list>
+      <button class="colorfull" ion-button block (click)="createWalletModal()">Create wallet</button>
+      <button ion-button block (click)="scanOnclick()">Scan wallet</button>
+    </ion-list>
+  </div>
+  <div class="footer">
+    <a href="https://facebook.com"><img src="assets/imgs/social/fb.png"></a>
+    <a href="https://instagram.com"><img src="assets/imgs/social/ig.png"></a>
+    <a href="https://linkedin.com"><img src="assets/imgs/social/li.png"></a>
+  </div>
+
+
 </ion-content>
