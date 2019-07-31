@@ -19,9 +19,10 @@
     <ion-item-sliding #item *ngFor="let token of tokens; let i=index">
       <ion-item>
         <ion-avatar item-start>
-          <!--<img src="img/my-avatar.png">-->
-          <p id="tokenSymbol">{{ token.symbol}}</p>
+<!--          <img src="img/my-avatar.png">-->
+          <p id="tokenSymbolLogo" [ngStyle]="{'background-color': symbolBgColor(token.name)}">{{ token.symbol}}</p>
         </ion-avatar>
+        <p id="tokenSymbol">{{ token.symbol}}</p>
         <p id="tokenName">{{ token.name }}</p>
         <p item-end id="balance">{{ tokensBalances[i] }}</p>
       </ion-item>
@@ -39,11 +40,14 @@
         <ion-icon name="add"></ion-icon>
       </button>
       <ion-fab-list side="top">
+        <div class="fab-backdrop"></div>
         <button ion-fab (click)="addTokenModal(fab)" color="secondary">
           <ion-icon name="create"></ion-icon>
+          <ion-label>Add Manually</ion-label>
         </button>
         <button ion-fab (click)="scanOnclick(fab)" color="primary">
           <ion-icon name="camera"></ion-icon>
+          <ion-label>Scan QR Code</ion-label>
         </button>
       </ion-fab-list>
     </ion-fab>
