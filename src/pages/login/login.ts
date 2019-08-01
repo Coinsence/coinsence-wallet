@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
 import { WalletProvider } from '../../providers/wallet/wallet';
 
 @IonicPage()
@@ -12,6 +12,7 @@ export class LoginPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public toastCtrl: ToastController,
     private modalController: ModalController,
     private walletProvider: WalletProvider
   ) {
@@ -36,15 +37,26 @@ export class LoginPage {
           this.navCtrl.push('TabsPage');
         }
         else {
-          alert("Invalid address");
+            this.permissionDeniedToast('Invalid address!');
         }
       }
       else {
-        alert("No address detected!");
+        this.permissionDeniedToast('No address detected!');
       }
-
     })
+
     scanQrModal.present();
+  }
+
+  permissionDeniedToast(message: string) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'buttom',
+      cssClass: 'danger',
+    });
+
+    toast.present();
   }
 
   createWalletModal() {
