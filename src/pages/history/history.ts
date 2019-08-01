@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { EtherscanProvider } from '../../providers/etherscan/etherscan';
 import { WalletProvider } from '../../providers/wallet/wallet';
+import * as ColorHash from 'color-hash/dist/color-hash.js'
 
 @IonicPage()
 @Component({
@@ -14,6 +15,7 @@ export class HistoryPage {
   public txs: any;
   public page: number = 1;
   public limit: number = 10;
+  private colorHash;
 
   constructor(
     public navCtrl: NavController,
@@ -27,6 +29,7 @@ export class HistoryPage {
   ionViewWillEnter() {
     console.log('ionViewWillEnter HistoryPage');
     this.init();
+    this.colorHash = new ColorHash();
   }
 
   init() {
@@ -69,6 +72,13 @@ export class HistoryPage {
       console.log('Async operation has ended');
       refresher.complete();
     }, 2000);
+  }
+
+  symbolBgColor(str: string) {
+
+    let color = this.colorHash.hex(str);
+
+    return color;
   }
 
 }
