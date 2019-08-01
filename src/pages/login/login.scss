@@ -72,7 +72,15 @@ page-login {
       transition: background-position-x 200ms !important;
     }
 
-    &.colorfull.activated {
+    &.colorfull-invert {
+      color: white;
+      background-image: linear-gradient(to right, #F2AF57, #28AA69, #3CBEEF, #28AA69, #F2AF57);
+      background-size: 200%;
+      transition: background-position-x 200ms !important;
+    }
+
+    &.colorfull.activated,
+    &.colorfull-invert.activated {
       background-position-x: 100%;
     }
 
