@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { EtherscanProvider } from '../../providers/etherscan/etherscan';
 import { WalletProvider } from '../../providers/wallet/wallet';
+
 import * as ColorHash from 'color-hash/dist/color-hash.js'
 
 @IonicPage()

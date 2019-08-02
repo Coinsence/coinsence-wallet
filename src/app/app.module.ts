@@ -4,20 +4,12 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { QRScanner } from "@ionic-native/qr-scanner";
 
 import { MyApp } from './app.component';
 
-//Providers
-import { QRScanner } from "@ionic-native/qr-scanner";
-import { EtherProvider } from '../providers/ether/ether';
-import { WalletProvider } from '../providers/wallet/wallet';
-import { EtherscanProvider } from '../providers/etherscan/etherscan';
-import { TokenProvider } from '../providers/token/token';
-import { EthplorerProvider } from '../providers/ethplorer/ethplorer';
-import { BlockscoutProvider } from '../providers/blockscout/blockscout';
-
-//Pipes module
-import { PipesModule } from '../pipes/pipes.module';
+//Providers module
+import { ProvidersModule } from '../providers/providers.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +19,7 @@ import { PipesModule } from '../pipes/pipes.module';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
-    PipesModule
+    ProvidersModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -38,13 +30,7 @@ import { PipesModule } from '../pipes/pipes.module';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    QRScanner,
-    EtherProvider,
-    WalletProvider,
-    EtherscanProvider,
-    TokenProvider,
-    EthplorerProvider,
-    BlockscoutProvider
+    QRScanner
   ]
 })
 export class AppModule {}
