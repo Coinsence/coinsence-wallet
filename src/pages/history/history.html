@@ -28,7 +28,7 @@
           <div>
             <p id="tokenName" *ngIf="walletProvider.checkSumAddress(tx.to) == walletAddress">Received {{ tx.tokenSymbol }}</p>
             <p id="tokenName" *ngIf="walletProvider.checkSumAddress(tx.from) == walletAddress">Sent {{ tx.tokenSymbol }}</p>
-            <p id="txDate">{{ tx.timeStamp * 1000 | date: 'dd/MM/yyyy' }} at {{ tx.timeStamp * 1000 | date: 'shortTime' }}</p>
+            <p id="txDate">{{ tx.timeStamp * 1000 | date: 'dd/MM/yyyy' }}, {{ tx.timeStamp * 1000 | date: 'shortTime' }}</p>
           </div>
           <p id="txAmount" item-end [ngClass]="{'sent' : walletProvider.checkSumAddress(tx.from) == walletAddress, 'received' : walletProvider.checkSumAddress(tx.to) == walletAddress}">
             {{ tx.value | shortNumber }}
