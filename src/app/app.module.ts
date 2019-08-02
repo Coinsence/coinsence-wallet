@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 
+//Providers
 import { QRScanner } from "@ionic-native/qr-scanner";
 import { EtherProvider } from '../providers/ether/ether';
 import { WalletProvider } from '../providers/wallet/wallet';
@@ -15,6 +16,9 @@ import { TokenProvider } from '../providers/token/token';
 import { EthplorerProvider } from '../providers/ethplorer/ethplorer';
 import { BlockscoutProvider } from '../providers/blockscout/blockscout';
 
+//Pipes module
+import { PipesModule } from '../pipes/pipes.module';
+
 @NgModule({
   declarations: [
     MyApp
@@ -22,7 +26,8 @@ import { BlockscoutProvider } from '../providers/blockscout/blockscout';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    PipesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
