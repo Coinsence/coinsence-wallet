@@ -95,3 +95,12 @@ button[ion-fab] {
   }
   contain: layout;
 }
+
+//general toast styling
+ion-toast.success .toast-wrapper {
+	background: map-get($colors, secondary);
+}
+
+ion-toast.error .toast-wrapper {
+	background: map-get($colors, danger);
+}

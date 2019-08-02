@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, ModalController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, ModalController, AlertController, ToastController } from 'ionic-angular';
 import { EtherProvider } from '../../providers/ether/ether';
 import { TokenProvider } from '../../providers/token/token';
 import { BlockscoutProvider } from '../../providers/blockscout/blockscout';
@@ -28,6 +28,7 @@ export class HomePage {
     public navCtrl: NavController,
     public modalController: ModalController,
     private alertCtrl: AlertController,
+    public toastCtrl: ToastController,
     private etherProvider: EtherProvider,
     private tokenProvider: TokenProvider,
     private blockscoutProvider: BlockscoutProvider
@@ -80,7 +81,7 @@ export class HomePage {
     fab.close();
 
     let scanQrModal = this.modalController.create('ScanQrPage');
-    scanQrModal.onWillDismiss(async(ethAddress) => {
+    scanQrModal.onDidDismiss(async(ethAddress) => {
       if(ethAddress != undefined) {
         //get contract address
         const tokenAddress = ethAddress.split(":").pop();
@@ -102,14 +103,25 @@ export class HomePage {
           await this.loadTokens();
         }
         else {
-          alert(tokenInfo.message);
+          this.permissionDeniedToast(tokenInfo.message);
         }
       }
       else {
-        alert("No address detected!");
+        this.permissionDeniedToast("No address detected!")
       }
     })
     scanQrModal.present();
+  }
+
+  permissionDeniedToast(message: string) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'buttom',
+      cssClass: 'danger',
+    });
+
+    toast.present();
   }
 
   addTokenModal(fab: any) {
