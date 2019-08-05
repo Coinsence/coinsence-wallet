@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the SettingsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+//default tokens list
+import { defaultTokens } from '../../utils/default-tokens';
 
 @IonicPage()
 @Component({
@@ -15,11 +10,27 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams
+  ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
+  }
+
+  public aboutModal() {
+
+  }
+
+  public logout() {
+    //reset data
+    localStorage.setItem("isWallet", "false");
+    localStorage.setItem("wallet", "");
+    localStorage.setItem("defaultTokens", JSON.stringify(defaultTokens));
+
+    this.navCtrl.push('LoginPage');
   }
 
 }
