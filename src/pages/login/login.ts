@@ -64,9 +64,6 @@ export class LoginPage {
     localStorage.setItem("isWallet", "true");
 
     let createWalletModal = this.modalController.create('CreateWalletPage', { wallet: wallet }, { showBackdrop: false, enableBackdropDismiss: false});
-    createWalletModal.onDidDismiss(() => {
-      this.navCtrl.push('TabsPage');
-    });
     createWalletModal.present();
   }
 
