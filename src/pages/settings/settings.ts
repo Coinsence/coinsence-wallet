@@ -33,7 +33,8 @@ export class SettingsPage {
     localStorage.setItem("wallet", "");
     localStorage.setItem("defaultTokens", JSON.stringify(defaultTokens));
 
-    this.appCtrl.getRootNav().push('LoginPage');
+    this.navCtrl.setRoot('LoginPage');
+    this.navCtrl.popToRoot();
   }
 
 }
