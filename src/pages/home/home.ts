@@ -35,6 +35,17 @@ export class HomePage {
   ) {
   }
 
+  ionViewCanEnter(): boolean{
+    // here we can either return true or false
+    // depending on if we want to leave this view
+    if(localStorage.getItem("isWallet") == "true"){
+       return true;
+     } else {
+       return false;
+     }
+   }
+
+
   ionViewWillEnter() {
     console.log('ionViewWillEnter HomePage');
 

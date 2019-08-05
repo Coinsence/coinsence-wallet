@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, App, NavController, NavParams, ModalController } from 'ionic-angular';
 //default tokens list
 import { defaultTokens } from '../../utils/default-tokens';
 
@@ -11,6 +11,7 @@ import { defaultTokens } from '../../utils/default-tokens';
 export class SettingsPage {
 
   constructor(
+    public appCtrl: App,
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalController: ModalController
@@ -32,7 +33,8 @@ export class SettingsPage {
     localStorage.setItem("wallet", "");
     localStorage.setItem("defaultTokens", JSON.stringify(defaultTokens));
 
-    this.navCtrl.push('LoginPage');
+    this.navCtrl.setRoot('LoginPage');
+    this.navCtrl.popToRoot();
   }
 
 }
