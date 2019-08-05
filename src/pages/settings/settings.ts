@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, App, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, App, NavController, NavParams, ModalController } from 'ionic-angular';
 //default tokens list
 import { defaultTokens } from '../../utils/default-tokens';
 
@@ -13,7 +13,8 @@ export class SettingsPage {
   constructor(
     public appCtrl: App,
     public navCtrl: NavController,
-    public navParams: NavParams
+    public navParams: NavParams,
+    public modalController: ModalController
   ) {
   }
 
@@ -22,7 +23,8 @@ export class SettingsPage {
   }
 
   public aboutModal() {
-
+    let aboutUsModal = this.modalController.create('AboutUsPage');
+    aboutUsModal.present();
   }
 
   public logout() {
