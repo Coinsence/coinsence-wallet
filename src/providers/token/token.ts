@@ -43,7 +43,7 @@ export class TokenProvider {
   ) {
     for(let i=0; i<tokens.length; i++) {
       //test notification
-      this.notificationProvider.scheduleNotification('Single ILocalNotification', 'test');
+      this.notificationProvider.scheduleNotification('token test notification', 'test');
 
       let contract =  new ethers.Contract(tokens[i].contractAddress, erc20Abi, provider);
       console.log(contract);
