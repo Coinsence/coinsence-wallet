@@ -9,13 +9,8 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { MyApp } from './app.component';
 
-import { EtherProvider } from '../providers/ether/ether';
-import { WalletProvider } from '../providers/wallet/wallet';
-import { EtherscanProvider } from '../providers/etherscan/etherscan';
-import { TokenProvider } from '../providers/token/token';
-import { EthplorerProvider } from '../providers/ethplorer/ethplorer';
-import { BlockscoutProvider } from '../providers/blockscout/blockscout';
-import { NotificationProvider } from '../providers/notification/notification';
+//Providers module
+import { ProvidersModule } from '../providers/providers.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +19,8 @@ import { NotificationProvider } from '../providers/notification/notification';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    ProvidersModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -36,14 +32,7 @@ import { NotificationProvider } from '../providers/notification/notification';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     QRScanner,
-    LocalNotifications,
-    EtherProvider,
-    WalletProvider,
-    EtherscanProvider,
-    TokenProvider,
-    EthplorerProvider,
-    BlockscoutProvider,
-    NotificationProvider
+    LocalNotifications
   ]
 })
 export class AppModule {}

@@ -7,4 +7,33 @@ page-history {
   .sent {
     color: #1ad859;
   }
+
+  #tokenSymbolLogo {
+    line-height: 40px;
+    text-align: center;
+    color: white;
+    border-radius: 50%;
+  }
+
+  #tokenName {
+    color: #262626;
+    font-weight: bold;
+  }
+
+  #txDate {
+    color: #9a9a9a;
+    font-size: 12px;
+  }
+
+  #txAmount {
+    font-weight: bold;
+  }
+
+  .card-md {
+    border-radius: 12px;
+  }
+
+  .card-content-md {
+    padding: 0;
+  }
 }

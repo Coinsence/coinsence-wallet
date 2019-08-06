@@ -2,13 +2,31 @@ page-home {
 
   #balance {
     color: #58c9e3;
+    font-size: 18px;
+    font-weight: bold;
   }
 
   #tokenName {
-    color:  #262626;
+    color: #8a8a8a;
+    font-size: 12px;
   }
 
   #tokenSymbol {
     color:  #262626;
+    font-size: 16px;
+    font-weight: bold;
   }
+
+  #tokenSymbolLogo {
+    line-height: 40px;
+    text-align: center;
+    color: white;
+    border-radius: 50%;
+  }
+
 }
+
+ion-app.cameraView page-home {
+  display: none;
+}
+

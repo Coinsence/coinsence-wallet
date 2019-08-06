@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, App, NavParams, ViewController } from 'ionic-angular';
 import { EtherProvider } from '../../providers/ether/ether';
 import { WalletProvider } from '../../providers/wallet/wallet';
 
@@ -13,7 +13,7 @@ export class CreateWalletPage {
   public wallet: any;
 
   constructor(
-    public navCtrl: NavController,
+    public appCtrl: App,
     public navParams: NavParams,
     public viewController: ViewController,
     private etherProvider: EtherProvider,
@@ -32,6 +32,7 @@ export class CreateWalletPage {
     localStorage.setItem("wallet", JSON.stringify(signer));
 
     this.viewController.dismiss();
+    this.appCtrl.getRootNav().push('TabsPage');
   }
 
 }

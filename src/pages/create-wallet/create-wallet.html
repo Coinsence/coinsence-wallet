@@ -9,7 +9,6 @@
 
 <ion-content padding>
   <!-- TODO: show this.wallet.mnemonic at tell user to save it somewhere safe!-->
-  <ion-list>
-    <button ion-button block (click)="confirm()">Confirm</button>
-  </ion-list>
+  <p>{{ this.wallet.mnemonic }}</p>
+  <button ion-button block (click)="confirm()">Confirm</button>
 </ion-content>

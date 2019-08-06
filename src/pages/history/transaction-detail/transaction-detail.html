@@ -3,7 +3,7 @@
   <ion-navbar>
     <ion-title>Detail</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only color="danger" (click)="closeModal()">
+      <button ion-button icon-only color="primary" (click)="closeModal()">
         <ion-icon ios="md-exit" md="md-exit"></ion-icon>
       </button>
     </ion-buttons>
@@ -13,13 +13,47 @@
 
 
 <ion-content padding>
-  <p>Token name {{ tx.tokenName }}</p>
-  <p>Token symbol {{ tx.tokenSymbol }}</p>
-  <p>from {{ tx.from }}</p>
-  <p>To {{ tx.to }}</p>
-  <p>Amount {{ tx.value }}</p>
-  <p>Date {{ tx.timeStamp * 1000 | date: 'dd/MM/yyyy' }} {{ tx.timeStamp * 1000 | date: 'shortTime' }}</p>
-  <p>Gas limit {{ tx.gas }}</p>
-  <p>Gas used {{ tx.gasUsed }}</p>
-  <p>Gas price {{ tx.gasPrice }}</p>
+  <table>
+    <tr>
+      <td>Token name</td>
+      <td>{{ tx.tokenName }}</td>
+    </tr>
+    <tr>
+      <td>Token symbol</td>
+      <td>{{ tx.tokenSymbol }}</td>
+    </tr>
+    <tr class="from">
+      <td colspan="2">From</td>
+    </tr>
+    <tr class="from-value">
+      <td colspan="2"><a [href]="'https://rinkeby.etherscan.io/address/' + tx.from">{{ tx.from }}</a></td>
+    </tr>
+    <tr class="to">
+      <td colspan="2">To</td>
+    </tr>
+    <tr class="to-value">
+      <td colspan="2"><a [href]="'https://rinkeby.etherscan.io/address/' + tx.to">{{ tx.to }}</a></td>
+    </tr>
+    <tr>
+      <td>Amount</td>
+      <td>{{ tx.value }}</td>
+    </tr>
+    <tr>
+      <td>Date</td>
+      <td>{{ tx.timeStamp * 1000 | date: 'dd/MM/yyyy' }} {{ tx.timeStamp * 1000 | date: 'shortTime' }}</td>
+    </tr>
+
+    <tr>
+      <td>Gas limit</td>
+      <td>{{ tx.gas }}</td>
+    </tr>
+    <tr>
+      <td>Gas used</td>
+      <td>{{ tx.gasUsed }}</td>
+    </tr>
+    <tr>
+      <td>Gas price</td>
+      <td>{{ tx.gasPrice }}</td>
+    </tr>
+  </table>
 </ion-content>

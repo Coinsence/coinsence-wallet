@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, ModalController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, ModalController, AlertController, ToastController } from 'ionic-angular';
 import { EtherProvider } from '../../providers/ether/ether';
 import { TokenProvider } from '../../providers/token/token';
 import { BlockscoutProvider } from '../../providers/blockscout/blockscout';
+import * as ColorHash from 'color-hash/dist/color-hash.js'
 
 @IonicPage()
 @Component({
@@ -21,16 +22,29 @@ export class HomePage {
     decimals: number
   }>;
   public tokensBalances: Array<number> = [];
+  private colorHash;
 
   constructor(
     public navCtrl: NavController,
     public modalController: ModalController,
     private alertCtrl: AlertController,
+    public toastCtrl: ToastController,
     private etherProvider: EtherProvider,
     private tokenProvider: TokenProvider,
     private blockscoutProvider: BlockscoutProvider
   ) {
   }
+
+  ionViewCanEnter(): boolean{
+    // here we can either return true or false
+    // depending on if we want to leave this view
+    if(localStorage.getItem("isWallet") == "true"){
+       return true;
+     } else {
+       return false;
+     }
+   }
+
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter HomePage');
@@ -38,6 +52,8 @@ export class HomePage {
     this.getProvider();
     this.loadWallet();
     this.loadTokens();
+
+    this.colorHash = new ColorHash();
   }
 
   private getProvider() {
@@ -76,7 +92,7 @@ export class HomePage {
     fab.close();
 
     let scanQrModal = this.modalController.create('ScanQrPage');
-    scanQrModal.onWillDismiss(async(ethAddress) => {
+    scanQrModal.onDidDismiss(async(ethAddress) => {
       if(ethAddress != undefined) {
         //get contract address
         const tokenAddress = ethAddress.split(":").pop();
@@ -101,14 +117,25 @@ export class HomePage {
           this.tokenProvider.setTokenListener(this.wallet.signingKey.address, this.tokens, this.provider);
         }
         else {
-          alert(tokenInfo.message);
+          this.permissionDeniedToast(tokenInfo.message);
         }
       }
       else {
-        alert("No address detected!");
+        this.permissionDeniedToast("No address detected!")
       }
     })
     scanQrModal.present();
+  }
+
+  permissionDeniedToast(message: string) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'buttom',
+      cssClass: 'danger',
+    });
+
+    toast.present();
   }
 
   addTokenModal(fab: any) {
@@ -156,5 +183,12 @@ export class HomePage {
     localStorage.setItem("defaultTokens", JSON.stringify(this.tokens));
 
     await this.loadTokens();
+  }
+
+  symbolBgColor(str: string) {
+
+    let color = this.colorHash.hex(str);
+
+    return color;
   }
 }
