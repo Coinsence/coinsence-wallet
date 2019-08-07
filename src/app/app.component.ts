@@ -37,7 +37,10 @@ export class MyApp {
         let provider = etherProvider.get();
         let wallet = JSON.parse(localStorage.getItem('wallet'));
         let tokens = JSON.parse(localStorage.getItem('defaultTokens'));
-        tokenProvider.setTokenListener(wallet.signingKey.address, tokens, provider);
+
+        tokens.forEach(token => {
+          tokenProvider.setTokenListener(wallet.signingKey.address, token, provider)
+        });
 
         this.rootPage = 'TabsPage';
       }

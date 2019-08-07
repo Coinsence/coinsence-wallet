@@ -33,33 +33,29 @@ export class TokenProvider {
    */
   public setTokenListener(
     address: string,
-    tokens: Array<{
+    token: {
       contractAddress: string,
       name: string,
       symbol: string,
       decimals: number
-    }>,
+    },
     provider: any
   ) {
-    for(let i=0; i<tokens.length; i++) {
-      //test notification
-      this.notificationProvider.scheduleNotification('token test notification', 'test');
+    //test notification
+    //this.notificationProvider.scheduleNotification('token test notification', 'test');
 
-      let contract =  new ethers.Contract(tokens[i].contractAddress, erc20Abi, provider);
-      console.log(contract);
-      //filter for Transfer event only
-      let filter = contract.filters.Transfer(null, address);
+    let contract =  new ethers.Contract(token.contractAddress, erc20Abi, provider);
+    console.log(contract);
+    //filter for Transfer event only
+    let filter = contract.filters.Transfer(null, address);
 
-      //check that there is no already a listener on that contract event
-      if(contract.listenerCount() == 0) {
-        contract.on(filter, (from, to, value) => {
-          console.log('I received ' + value.toString() + ' tokens from ' + from);
-          let text = `Received ${value.toString} ${tokens[i].name} from ${from}`;
-          let data = 'test';
-          this.notificationProvider.scheduleNotification(text, data);
-        });
-      }
-    }
+    //check that there is no already a listener on that contract event
+    contract.on(filter, (from, to, value) => {
+      console.log('I received ' + value.toString() + ' tokens from ' + from);
+      let text = `Received ${value.toString} ${token.name} from ${from}`;
+      let data = 'test';
+      this.notificationProvider.scheduleNotification(text, data);
+    });
+
   }
-
 }

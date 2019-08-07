@@ -114,7 +114,7 @@ export class HomePage {
           await this.loadTokens();
 
           //Create event listener for added token
-          this.tokenProvider.setTokenListener(this.wallet.signingKey.address, this.tokens, this.provider);
+          this.tokenProvider.setTokenListener(this.wallet.signingKey.address, token, this.provider);
         }
         else {
           this.permissionDeniedToast(tokenInfo.message);
@@ -142,11 +142,15 @@ export class HomePage {
     fab.close();
 
     let createWalletModal = this.modalController.create('AddTokenPage', { defaultTokens: this.tokens }, { showBackdrop: false, enableBackdropDismiss: false});
-    createWalletModal.onWillDismiss(async() => {
+    createWalletModal.onWillDismiss(async(token) => {
+      console.log(token);
       await this.loadTokens();
 
-      //Create event listener for added token
-      this.tokenProvider.setTokenListener(this.wallet.signingKey.address, this.tokens, this.provider);
+      console.log(token);
+      if(token != undefined) {
+        //Create event listener for added token
+        this.tokenProvider.setTokenListener(this.wallet.signingKey.address, token, this.provider);
+      }
     });
     createWalletModal.present();
   }
