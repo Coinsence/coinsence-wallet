@@ -19,7 +19,6 @@
     <ion-item-sliding #item *ngFor="let token of tokens; let i=index">
       <ion-item>
         <ion-avatar item-start>
-<!--          <img src="img/my-avatar.png">-->
           <p id="tokenSymbolLogo" [ngStyle]="{'background-color': symbolBgColor(token.name)}">{{ token.symbol}}</p>
         </ion-avatar>
         <p id="tokenSymbol">{{ token.symbol}}</p>
