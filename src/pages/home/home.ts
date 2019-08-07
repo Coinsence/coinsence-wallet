@@ -21,7 +21,7 @@ export class HomePage {
     symbol: string,
     decimals: number
   }>;
-  public tokensBalances: Array<number> = [];
+  public tokensBalances: Array<string> = [];
   private colorHash;
 
   constructor(
