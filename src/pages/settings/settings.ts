@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, App, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, App, ModalController } from 'ionic-angular';
 //default tokens list
 import { defaultTokens } from '../../utils/default-tokens';
 
