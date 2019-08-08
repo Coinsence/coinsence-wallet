@@ -118,7 +118,7 @@ export class HomePage {
         }
       }
       else {
-        this.permissionDeniedToast("No address detected!")
+        this.permissionDeniedToast("No address detected!");
       }
     })
     scanQrModal.present();

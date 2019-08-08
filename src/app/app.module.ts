@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { QRScanner } from "@ionic-native/qr-scanner";
+import { Network } from '@ionic-native/network';
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 import { MyApp } from './app.component';
 
@@ -30,7 +32,9 @@ import { ProvidersModule } from '../providers/providers.module';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    QRScanner
+    QRScanner,
+    Network,
+    BackgroundMode
   ]
 })
 export class AppModule {}
