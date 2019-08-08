@@ -11,13 +11,13 @@ export class TokenProvider {
     console.log(erc20Abi);
   }
 
-  public getBalance(walletAddress: string, contractAddress: string, provider: any) : Promise<string> {
+  public getBalance(walletAddress: string, contractAddress: string, provider: any) : Promise<any> {
     let tokenContract = new ethers.Contract(contractAddress, erc20Abi, provider);
 
     return new Promise((resolve, reject) => {
       tokenContract.balanceOf(walletAddress).then((res) => {
-        console.log(res);
-        resolve(res.toString(10));
+        console.log(res.toString());
+        resolve(res);
       }, (err) => {
         console.log(err);
         reject(err);
