@@ -5,6 +5,7 @@ import { EtherscanProvider } from './etherscan/etherscan';
 import { TokenProvider } from './token/token';
 import { EthplorerProvider } from './ethplorer/ethplorer';
 import { BlockscoutProvider } from './blockscout/blockscout';
+import { NetworkProvider } from './network/network';
 
 @NgModule({
   providers: [
@@ -13,7 +14,8 @@ import { BlockscoutProvider } from './blockscout/blockscout';
     EtherscanProvider,
     TokenProvider,
     EthplorerProvider,
-    BlockscoutProvider
+    BlockscoutProvider,
+    NetworkProvider
   ]
 })
 export class ProvidersModule { }
