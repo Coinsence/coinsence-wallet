@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform, Events, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { EtherProvider } from '../providers/ether/ether';
 import { TokenProvider } from '../providers/token/token';
 import { NotificationProvider } from '../providers/notification/notification';
+import { BackgroundMode } from '@ionic-native/background-mode';
+import { NetworkProvider } from '../providers/network/network';
 //default tokens list
 import { defaultTokens } from '../utils/default-tokens';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -19,15 +22,32 @@ export class MyApp {
     platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
+    backgroundMode: BackgroundMode,
+    events: Events,
     etherProvider : EtherProvider,
     tokenProvider: TokenProvider,
-    notificationProvider: NotificationProvider
+    notificationProvider: NotificationProvider,
+    networkProvider: NetworkProvider,
+    public toastCtrl: ToastController
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
+      statusBar.styleLightContent();
       splashScreen.hide();
+      backgroundMode.enable();
+
+      // Check connectivity
+      networkProvider.initializeNetworkEvents();
+      // Offline event
+      events.subscribe('network:offline', () => {
+        this.disconnectToast();
+      });
+      // Online event
+      events.subscribe('network:online', () => {
+        this.connectToast();
+      });
 
       //check if app have permission to show notifications
       notificationProvider.checkPermission();
@@ -49,6 +69,28 @@ export class MyApp {
         this.rootPage = 'LoginPage';
       }
     });
+  }
+
+  connectToast() {
+    let toast = this.toastCtrl.create({
+      message: "You are online",
+      duration: 2000,
+      position: 'buttom',
+      cssClass: 'success',
+    });
+
+    toast.present();
+  }
+
+  disconnectToast() {
+    let toast = this.toastCtrl.create({
+      message: "You are offline",
+      duration: 2000,
+      position: 'buttom',
+      cssClass: 'danger',
+    });
+
+    toast.present();
   }
 }
 

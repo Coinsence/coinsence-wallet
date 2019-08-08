@@ -6,6 +6,7 @@ import { TokenProvider } from './token/token';
 import { EthplorerProvider } from './ethplorer/ethplorer';
 import { BlockscoutProvider } from './blockscout/blockscout';
 import { NotificationProvider } from './notification/notification';
+import { NetworkProvider } from './network/network';
 
 @NgModule({
   providers: [
@@ -15,7 +16,8 @@ import { NotificationProvider } from './notification/notification';
     TokenProvider,
     EthplorerProvider,
     BlockscoutProvider,
-    NotificationProvider
+    NotificationProvider,
+    NetworkProvider
   ]
 })
 export class ProvidersModule { }

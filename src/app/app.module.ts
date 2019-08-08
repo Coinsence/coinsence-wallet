@@ -6,6 +6,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { QRScanner } from "@ionic-native/qr-scanner";
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import { Network } from '@ionic-native/network';
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 import { MyApp } from './app.component';
 
@@ -26,13 +28,14 @@ import { ProvidersModule } from '../providers/providers.module';
   entryComponents: [
     MyApp
   ],
-  /** Add QRScanner in the provider array **/
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     QRScanner,
-    LocalNotifications
+    LocalNotifications,
+    Network,
+    BackgroundMode
   ]
 })
 export class AppModule {}
