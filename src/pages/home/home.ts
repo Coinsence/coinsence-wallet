@@ -12,15 +12,19 @@ import * as ColorHash from 'color-hash/dist/color-hash.js'
 })
 export class HomePage {
 
+  // ether.js provider
   private provider: any;
 
+  // wallet object
   public wallet: any;
+  // list of tokens
   public tokens: Array<{
     contractAddress: string,
     name: string,
     symbol: string,
     decimals: number
   }>;
+  // list of tokens balances
   public tokensBalances: Array<string> = [];
   private colorHash;
 
@@ -36,15 +40,13 @@ export class HomePage {
   }
 
   ionViewCanEnter(): boolean{
-    // here we can either return true or false
-    // depending on if we want to leave this view
+    // can only enter this view if there is an existant wallet in localstorage
     if(localStorage.getItem("isWallet") == "true"){
-       return true;
-     } else {
-       return false;
-     }
-   }
-
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter HomePage');
@@ -56,14 +58,23 @@ export class HomePage {
     this.colorHash = new ColorHash();
   }
 
+  /**
+   * get ether.js provider
+   */
   private getProvider() {
     this.provider = this.etherProvider.get();
   }
 
+  /**
+   * load wallet from localstorage
+   */
   private loadWallet() {
     this.wallet = JSON.parse(localStorage.getItem('wallet'));
   }
 
+  /**
+   * get list of tokens and load balances
+   */
   private async loadTokens() {
     this.tokens = JSON.parse(localStorage.getItem("defaultTokens"));
     console.log(this.tokens);
@@ -88,6 +99,10 @@ export class HomePage {
     }, 2000);
   }
 
+  /**
+   * qr-scanner modal
+   * @param fab any
+   */
   public scanOnclick(fab: any) {
     fab.close();
 
@@ -100,6 +115,7 @@ export class HomePage {
         //get token info
         let tokenInfo = await this.blockscoutProvider.getTokenInfo(tokenAddress);
 
+        // if token address exist
         if(tokenInfo.status != "0") {
           //update default tokens item
           let token = {
@@ -108,9 +124,12 @@ export class HomePage {
             name: tokenInfo.result.name,
             symbol: tokenInfo.result.symbol
           };
+          // add token to tokens list
           this.tokens.push(token);
+          // save tokens list into localstorage
           localStorage.setItem("defaultTokens", JSON.stringify(this.tokens));
 
+          // load tokens
           await this.loadTokens();
 
           //Create event listener for added token
@@ -127,6 +146,10 @@ export class HomePage {
     scanQrModal.present();
   }
 
+  /**
+   * show permission denied toast
+   * @param message toast message
+   */
   permissionDeniedToast(message: string) {
     let toast = this.toastCtrl.create({
       message: message,
@@ -138,15 +161,18 @@ export class HomePage {
     toast.present();
   }
 
+  /**
+   * add token
+   * @param fab any
+   */
   addTokenModal(fab: any) {
     fab.close();
 
+    // open add token modal
     let createWalletModal = this.modalController.create('AddTokenPage', { defaultTokens: this.tokens }, { showBackdrop: false, enableBackdropDismiss: false});
     createWalletModal.onWillDismiss(async(token) => {
-      console.log(token);
       await this.loadTokens();
 
-      console.log(token);
       if(token != undefined) {
         //Create event listener for added token
         this.tokenProvider.setTokenListener(this.wallet.signingKey.address, token, this.provider);
@@ -155,6 +181,11 @@ export class HomePage {
     createWalletModal.present();
   }
 
+  /**
+   * show remove alert
+   * @param e event
+   * @param tokenIndex token index in tokens list
+   */
   public showRemoveAlert(e, tokenIndex: number) {
     e.preventDefault();
     e.stopPropagation();
@@ -182,6 +213,10 @@ export class HomePage {
     alert.present();
   }
 
+  /**
+   * remove token
+   * @param tokenIndex token index in tokens list
+   */
   public async removeToken(tokenIndex: number) {
     this.tokens.splice(tokenIndex, 1);
     this.tokensBalances.splice(tokenIndex, 1);
