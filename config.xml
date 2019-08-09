@@ -99,6 +99,7 @@
     <plugin name="cordova-plugin-network-information" spec="^2.0.2" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.3" />
     <plugin name="cordova-plugin-background-mode" spec="^0.7.3" />
+    <plugin name="cordova-plugin-badge" spec="^0.8.8" />
     <engine name="android" spec="^8.0.0" />
     <engine name="ios" spec="^4.5.5" />
 </widget>

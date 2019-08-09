@@ -43,9 +43,6 @@ export class TokenProvider {
     },
     provider: any
   ) {
-    //test notification
-    //this.notificationProvider.scheduleNotification('token test notification', 'test');
-
     let contract =  new ethers.Contract(token.contractAddress, erc20Abi, provider);
     console.log(contract);
     //filter for Transfer event only
@@ -53,9 +50,8 @@ export class TokenProvider {
 
     //check that there is no already a listener on that contract event
     contract.on(filter, (from, to, value) => {
-      console.log('I received ' + value.toString() + ' tokens from ' + from);
-      let text = `Received ${value.toString} ${token.name} from ${from}`;
-      let data = 'test';
+      let text = `Received ${value.toString()} \n${token.name} from \n${from}`;
+      let data = '';
       this.notificationProvider.scheduleNotification(text, data);
     });
 

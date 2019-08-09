@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { Platform, Events, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { BackgroundMode } from '@ionic-native/background-mode';
 import { EtherProvider } from '../providers/ether/ether';
 import { TokenProvider } from '../providers/token/token';
 import { NotificationProvider } from '../providers/notification/notification';
-import { BackgroundMode } from '@ionic-native/background-mode';
 import { NetworkProvider } from '../providers/network/network';
 //default tokens list
 import { defaultTokens } from '../utils/default-tokens';

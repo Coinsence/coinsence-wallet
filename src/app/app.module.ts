@@ -8,6 +8,7 @@ import { QRScanner } from "@ionic-native/qr-scanner";
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { Network } from '@ionic-native/network';
 import { BackgroundMode } from '@ionic-native/background-mode';
+import { Badge } from '@ionic-native/badge';
 
 import { MyApp } from './app.component';
 
@@ -35,7 +36,8 @@ import { ProvidersModule } from '../providers/providers.module';
     QRScanner,
     LocalNotifications,
     Network,
-    BackgroundMode
+    BackgroundMode,
+    Badge
   ]
 })
 export class AppModule {}
