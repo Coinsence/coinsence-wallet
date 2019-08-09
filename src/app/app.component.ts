@@ -3,6 +3,9 @@ import { Platform, Events, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { BackgroundMode } from '@ionic-native/background-mode';
+import { EtherProvider } from '../providers/ether/ether';
+import { TokenProvider } from '../providers/token/token';
+import { NotificationProvider } from '../providers/notification/notification';
 import { NetworkProvider } from '../providers/network/network';
 //default tokens list
 import { defaultTokens } from '../utils/default-tokens';
@@ -21,6 +24,9 @@ export class MyApp {
     splashScreen: SplashScreen,
     backgroundMode: BackgroundMode,
     events: Events,
+    etherProvider : EtherProvider,
+    tokenProvider: TokenProvider,
+    notificationProvider: NotificationProvider,
     networkProvider: NetworkProvider,
     public toastCtrl: ToastController
   ) {
@@ -43,12 +49,23 @@ export class MyApp {
         this.connectToast();
       });
 
-      // Check if wallet exist
-      if(localStorage.getItem("isWallet") == "true") {
+      //check if app have permission to show notifications
+      notificationProvider.checkPermission();
+
+      //if an imported, scanned or created wallet exist
+      if(localStorage.getItem('isWallet') == 'true') {
+        let provider = etherProvider.get();
+        let wallet = JSON.parse(localStorage.getItem('wallet'));
+        let tokens = JSON.parse(localStorage.getItem('defaultTokens'));
+
+        tokens.forEach(token => {
+          tokenProvider.setTokenListener(wallet.signingKey.address, token, provider)
+        });
+
         this.rootPage = 'TabsPage';
       }
       else {
-        localStorage.setItem("defaultTokens", JSON.stringify(defaultTokens));
+        localStorage.setItem('defaultTokens', JSON.stringify(defaultTokens));
         this.rootPage = 'LoginPage';
       }
     });

@@ -5,6 +5,7 @@ import { EtherscanProvider } from './etherscan/etherscan';
 import { TokenProvider } from './token/token';
 import { EthplorerProvider } from './ethplorer/ethplorer';
 import { BlockscoutProvider } from './blockscout/blockscout';
+import { NotificationProvider } from './notification/notification';
 import { NetworkProvider } from './network/network';
 
 @NgModule({
@@ -15,6 +16,7 @@ import { NetworkProvider } from './network/network';
     TokenProvider,
     EthplorerProvider,
     BlockscoutProvider,
+    NotificationProvider,
     NetworkProvider
   ]
 })
