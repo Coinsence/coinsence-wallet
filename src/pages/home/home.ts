@@ -184,6 +184,7 @@ export class HomePage {
 
   public async removeToken(tokenIndex: number) {
     this.tokens.splice(tokenIndex, 1);
+    this.tokensBalances.splice(tokenIndex, 1);
     localStorage.setItem("defaultTokens", JSON.stringify(this.tokens));
 
     await this.loadTokens();
