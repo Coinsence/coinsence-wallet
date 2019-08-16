@@ -31,12 +31,17 @@ export class MyApp {
     public toastCtrl: ToastController
   ) {
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      statusBar.styleLightContent();
-      splashScreen.hide();
-      backgroundMode.enable();
+      if(platform.is('mobileweb') == false) {
+        // Okay, so the platform is ready and our plugins are available.
+        // Here you can do any higher level native things you might need.
+        statusBar.styleDefault();
+        statusBar.styleLightContent();
+        splashScreen.hide();
+        backgroundMode.enable();
+
+        //check if app have permission to show notifications
+        notificationProvider.checkPermission();
+      }
 
       // Check connectivity
       networkProvider.initializeNetworkEvents();
@@ -48,9 +53,6 @@ export class MyApp {
       events.subscribe('network:online', () => {
         this.connectToast();
       });
-
-      //check if app have permission to show notifications
-      notificationProvider.checkPermission();
 
       //if an imported, scanned or created wallet exist
       if(localStorage.getItem('isWallet') == 'true') {
