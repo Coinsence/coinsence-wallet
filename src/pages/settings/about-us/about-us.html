@@ -1,22 +1,27 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>About Us</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="primary" (click)="closeModal()">
+        <ion-icon ios="md-exit" md="md-exit"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
 
 <ion-content padding>
-
   <div class="header">
     <img src="assets/imgs/logo-coinsence.svg">
   </div>
   <div class="body">
-      <h5>Coinsence Mobile Wallet</h5>
-      <p>Coinsence wallet is simple and secure ethereum wallet to store your ERC20 tokens</p>
-    <ion-list>
-      <!--<button class="colorfull" ion-button block (click)="createWalletModal()">Create wallet</button>-->
-      <button class="colorfull-invert" ion-button block (click)="scanOnclick()">Scan wallet</button>
-    </ion-list>
+    <h5>Coinsence.org</h5>
+    <p>A decentralized network that empower changemakers and organizations to collaborate on projects that benefit society.</p>
   </div>
   <div class="footer">
     <a href="https://www.facebook.com/coinsencetunisia/"><img src="assets/imgs/social/fb.png"></a>
     <a href="https://www.instagram.com/coinsence_tn/"><img src="assets/imgs/social/ig.png"></a>
     <a href="https://www.linkedin.com/company/coinsencetn/"><img src="assets/imgs/social/li.png"></a>
   </div>
-
-
 </ion-content>

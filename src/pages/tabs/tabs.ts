@@ -13,6 +13,8 @@ export class TabsPage {
   settingsRoot = 'SettingsPage'
 
 
-  constructor(public navCtrl: NavController) {}
+  constructor(
+    public navCtrl: NavController
+  ) {}
 
 }

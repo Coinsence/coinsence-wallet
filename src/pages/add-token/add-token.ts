@@ -66,7 +66,7 @@ export class AddTokenPage {
     this.tokens.push(this.token);
     localStorage.setItem("defaultTokens", JSON.stringify(this.tokens));
 
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss({token: this.token});
   }
 
   public cancel() {

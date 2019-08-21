@@ -4,16 +4,16 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { QRScanner } from "@ionic-native/qr-scanner";
+import { LocalNotifications } from '@ionic-native/local-notifications';
+import { Network } from '@ionic-native/network';
+import { BackgroundMode } from '@ionic-native/background-mode';
+import { Badge } from '@ionic-native/badge';
 
 import { MyApp } from './app.component';
 
-import { QRScanner } from "@ionic-native/qr-scanner";
-import { EtherProvider } from '../providers/ether/ether';
-import { WalletProvider } from '../providers/wallet/wallet';
-import { EtherscanProvider } from '../providers/etherscan/etherscan';
-import { TokenProvider } from '../providers/token/token';
-import { EthplorerProvider } from '../providers/ethplorer/ethplorer';
-import { BlockscoutProvider } from '../providers/blockscout/blockscout';
+//Providers module
+import { ProvidersModule } from '../providers/providers.module';
 
 @NgModule({
   declarations: [
@@ -22,24 +22,22 @@ import { BlockscoutProvider } from '../providers/blockscout/blockscout';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    ProvidersModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp
   ],
-  /** Add QRScanner in the provider array **/
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     QRScanner,
-    EtherProvider,
-    WalletProvider,
-    EtherscanProvider,
-    TokenProvider,
-    EthplorerProvider,
-    BlockscoutProvider
+    LocalNotifications,
+    Network,
+    BackgroundMode,
+    Badge
   ]
 })
 export class AppModule {}
