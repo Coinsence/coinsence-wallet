@@ -36,7 +36,7 @@
     </tr>
     <tr>
       <td>Amount</td>
-      <td>{{ tx.value }}</td>
+      <td>{{ divideBalance(tx.value, tx.tokenDecimal) }}</td>
     </tr>
     <tr>
       <td>Date</td>

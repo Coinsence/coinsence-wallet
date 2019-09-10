@@ -31,7 +31,7 @@
             <p id="txDate">{{ tx.timeStamp * 1000 | date: 'dd/MM/yyyy' }}, {{ tx.timeStamp * 1000 | date: 'shortTime' }}</p>
           </div>
           <p id="txAmount" item-end [ngClass]="{'sent' : walletProvider.checkSumAddress(tx.from) == walletAddress, 'received' : walletProvider.checkSumAddress(tx.to) == walletAddress}">
-            {{ tx.value | shortNumber }}
+            {{ divideBalance(tx.value, tx.tokenDecimal) }}
           </p>
         </ion-item>
       </ion-card-content>

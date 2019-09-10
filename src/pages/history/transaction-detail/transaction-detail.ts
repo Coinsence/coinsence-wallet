@@ -22,6 +22,10 @@ export class TransactionDetailPage {
     console.log('ionViewDidLoad TransactionDetailPage');
   }
 
+  public divideBalance(balance: string, decimals: string): number {
+    return parseInt(balance) / 10**parseInt(decimals);
+  }
+
   public closeModal() {
     this.viewCtrl.dismiss();
   }

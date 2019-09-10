@@ -25,7 +25,7 @@ export class HomePage {
     decimals: number
   }>;
   // list of tokens balances
-  public tokensBalances: Array<string> = [];
+  public tokensBalances: Array<number> = [];
   private colorHash;
 
   constructor(
@@ -84,7 +84,7 @@ export class HomePage {
   private async loadTokensBalances() {
     for(let i=0; i<this.tokens.length; i++) {
       let tokenBalance = await this.tokenProvider.getBalance(this.wallet.signingKey.address, this.tokens[i].contractAddress, this.provider);
-      this.tokensBalances[i] = tokenBalance;
+      this.tokensBalances[i] = tokenBalance / 10 ** this.tokens[i].decimals;
     }
   }
 

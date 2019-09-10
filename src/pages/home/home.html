@@ -23,7 +23,7 @@
         </ion-avatar>
         <p id="tokenSymbol">{{ token.symbol}}</p>
         <p id="tokenName">{{ token.name }}</p>
-        <p item-end id="balance">{{ tokensBalances[i] | shortNumber }}</p>
+        <p item-end id="balance">{{ tokensBalances[i] }}</p>
       </ion-item>
       <ion-item-options side="right">
         <button ion-button (click)="showRemoveAlert($event, i)" color="danger">
