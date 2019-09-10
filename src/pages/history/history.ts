@@ -76,10 +76,12 @@ export class HistoryPage {
   }
 
   symbolBgColor(str: string) {
-
     let color = this.colorHash.hex(str);
-
     return color;
+  }
+
+  public divideBalance(balance: string, decimals: string): number {
+    return parseInt(balance) / 10**parseInt(decimals);
   }
 
 }
