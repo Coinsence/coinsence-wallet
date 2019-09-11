@@ -35,25 +35,24 @@ export class TokenProvider {
    */
   public setTokenListener(
     address: string,
-    token: {
-      contractAddress: string,
-      name: string,
-      symbol: string,
-      decimals: number
-    },
+    token: any,
     provider: any
   ) {
     let contract =  new ethers.Contract(token.contractAddress, erc20Abi, provider);
-    console.log(contract);
     //filter for Transfer event only
     let filter = contract.filters.Transfer(null, address);
 
     //check that there is no already a listener on that contract event
     contract.on(filter, (from, to, value) => {
-      let text = `Received ${value.toString()} \n${token.name} from \n${from}`;
+      let text = `Received ${this.divideBalance(value, token.decimals).toString()} \n${token.name} from \n${from}`;
       let data = '';
       this.notificationProvider.scheduleNotification(text, data);
     });
 
   }
+
+  public divideBalance(balance: string, decimals: string): number {
+    return parseInt(balance) / 10**parseInt(decimals);
+  }
+
 }
