@@ -170,12 +170,12 @@ export class HomePage {
 
     // open add token modal
     let createWalletModal = this.modalController.create('AddTokenPage', { defaultTokens: this.tokens }, { showBackdrop: false, enableBackdropDismiss: false});
-    createWalletModal.onWillDismiss(async(token) => {
+    createWalletModal.onDidDismiss(async(addedToken) => {
       await this.loadTokens();
 
-      if(token != undefined) {
+      if(addedToken != undefined) {
         //Create event listener for added token
-        this.tokenProvider.setTokenListener(this.wallet.signingKey.address, token, this.provider);
+        this.tokenProvider.setTokenListener(this.wallet.signingKey.address, addedToken, this.provider);
       }
     });
     createWalletModal.present();

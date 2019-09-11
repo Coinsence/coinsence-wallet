@@ -14,7 +14,8 @@ export class AddTokenPage {
     contractAddress: "",
     decimals: "",
     name: "",
-    symbol: ""
+    symbol: "",
+    exist: false
   };
   public isValidTokenContract: boolean = false;
 
@@ -39,9 +40,6 @@ export class AddTokenPage {
     loading.present();
 
     setTimeout(async() => {
-      console.log("token address typed!!!");
-      console.log($event.target.value);
-
       //get token info
       let tokenInfo = await this.blockscoutProvider.getTokenInfo($event.target.value);
 
@@ -52,21 +50,22 @@ export class AddTokenPage {
         this.token.contractAddress = tokenInfo.result.contractAddress,
         this.token.decimals = tokenInfo.result.decimals,
         this.token.name = tokenInfo.result.name,
-        this.token.symbol = tokenInfo.result.symbol
+        this.token.symbol = tokenInfo.result.symbol,
+        this.token.exist = true
       }
       else {
         alert(tokenInfo.message);
       }
 
       loading.dismiss();
-    }, 500);
+    }, 1000);
   }
 
   public addToken() {
     this.tokens.push(this.token);
     localStorage.setItem("defaultTokens", JSON.stringify(this.tokens));
 
-    this.viewCtrl.dismiss({token: this.token});
+    this.viewCtrl.dismiss(this.token);
   }
 
   public cancel() {

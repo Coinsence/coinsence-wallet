@@ -23,6 +23,6 @@
       <ion-input readonly type="string" [(ngModel)]="token.decimals"></ion-input>
     </ion-item>
   </ion-list>
-  <button ion-button color="primary" [disabled]="token.contractAddress === ''" (click)="addToken()">Add</button>
+  <button ion-button color="primary" [disabled]="token.exist == false" (click)="addToken()">Add</button>
   <button ion-button color="secondary" (click)="cancel()">Cancel</button>
 </ion-content>
