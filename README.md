@@ -12,17 +12,19 @@ cd coinsence-wallet
 Setup API's keys inside `src/environments/environment.ts`
 
 ```sh
-  apiEtherscanRinkeby: {
-    url: 'https://api-rinkeby.etherscan.io/api',
-    apiKey: ''
-  },
-  apiEthplorerMainnet: {
-    url: 'http://api.ethplorer.io',
-    apiKey: ''
-  },
-  apiBlockscoutRinkeby: {
-    url: 'http://blockscout.com/eth/rinkeby/api',
-    apiKey: ''
+  export const environment = {
+    apiEtherscanRinkeby: {
+      url: 'https://api-rinkeby.etherscan.io/api',
+      apiKey: ''
+    },
+    apiEthplorerMainnet: {
+      url: 'http://api.ethplorer.io',
+      apiKey: ''
+    },
+    apiBlockscoutRinkeby: {
+      url: 'http://blockscout.com/eth/rinkeby/api',
+      apiKey: ''
+    }
   }
 ```
 
@@ -74,7 +76,6 @@ The `final` commands build the production version of the app, and bundle it with
 ### Android
 
 ```sh
-npm run clean-all
 npm install
 npm run prepare:coinsence
 npm run final:android
@@ -83,7 +84,6 @@ npm run final:android
 ### iOS
 
 ```sh
-npm run clean-all
 npm install
 npm run prepare:coinsence
 npm run final:ios

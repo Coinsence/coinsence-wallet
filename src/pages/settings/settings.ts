@@ -25,6 +25,11 @@ export class SettingsPage {
     aboutUsModal.present();
   }
 
+  public privacyPolicyModal() {
+    let privacyPolicyModal = this.modalController.create('PrivacyPolicyPage');
+    privacyPolicyModal.present();
+  }
+
   public logout() {
     //reset data
     localStorage.setItem("isWallet", "false");
