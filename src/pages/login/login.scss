@@ -58,12 +58,14 @@ page-login {
   .button-md {
 
     margin: 18px 0;
-    border-radius: 8px;
+    border-radius: calc(4.6rem / 2);
     font-weight: bold;
     font-size: 12px;
 
     background-color: white;
     color: #262626;
+
+    height: 4.6rem;
 
     &.colorfull {
       color: white;
