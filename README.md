@@ -67,11 +67,9 @@ npm run prepare:coinsence
 npm run start:ios
 ```
 
-## Build Coinsence App Bundles
+## Build Coinsence App APK
 
-Before building the release version for a platform, run the `clean-all` command to delete any untracked files in your current working directory. (Be sure to stash any uncommited changes you've made.) This guarantees consistency across builds for the current state of this repository.
-
-The `final` commands build the production version of the app, and bundle it with the release version of the platform being built.
+The `final` commands build the production version of the app
 
 ### Android
 
@@ -87,6 +85,17 @@ npm run final:android
 npm install
 npm run prepare:coinsence
 npm run final:ios
+```
+
+## Build Coinsence App Bundle
+
+### Android
+
+```sh
+npm install
+npm run prepare:coinsence
+npm run build:android-bundle
+npm run sign:android-bundle
 ```
 
 ## About Coinsence Wallet
