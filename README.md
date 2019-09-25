@@ -1,6 +1,6 @@
-# Coinsence ERC20 mobile wallet
+![](docs/screenshots/logo.png)
 
-![](docs/screenshots/home.png)
+# Coinsence ERC20 mobile wallet
 
 ## Configuration
 
