@@ -18,11 +18,11 @@ Setup API's keys inside `src/environments/environment.ts`
       apiKey: ''
     },
     apiEthplorerMainnet: {
-      url: 'http://api.ethplorer.io',
+      url: 'https://api.ethplorer.io',
       apiKey: ''
     },
     apiBlockscoutRinkeby: {
-      url: 'http://blockscout.com/eth/rinkeby/api',
+      url: 'https://blockscout.com/eth/rinkeby/api',
       apiKey: ''
     }
   }
