@@ -18,7 +18,6 @@ export class TokenProvider {
 
     return new Promise((resolve, reject) => {
       tokenContract.balanceOf(walletAddress).then((res) => {
-        console.log(res.toString());
         resolve(res);
       }, (err) => {
         console.log(err);
