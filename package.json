@@ -1,6 +1,6 @@
 {
   "name": "coinsence-wallet",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "Coinsence.org",
   "homepage": "https://coinsence.org",
   "private": true,
@@ -10,7 +10,7 @@
     "start:android": "npm run run:android",
     "start:ios": "npm run build:ios && npm run open:ios",
     "final:ios": "npm run build:ios-release && npm run open:ios",
-    "final:android": "npm run build:android-release && npm run sign:android && npm run run:android-release",
+    "final:android": "npm run build:android-release && npm run sign:android",
     "run:android": "ionic cordova run android --device --debug",
     "run:android-release": "ionic cordova run android --device --release",
     "build:ios": "ionic cordova build ios --debug",
