@@ -78,21 +78,36 @@ export class HomePage {
   private async loadTokens() {
     this.tokens = JSON.parse(localStorage.getItem("defaultTokens"));
 
+    //get wallet tokens list
     let addressTokensList = await this.blockscoutProvider.getTokensList(this.wallet.signingKey.address);
     addressTokensList.result.forEach(addressToken => {
+      //check if token is erc20 and if token is not CCC token
       if((addressToken.type == "ERC-20") && (addressToken.contractAddress != "0xb705b833b2A6413e778c45A4499EE1c048875BF5")) {
-        let token = {
-          contractAddress: addressToken.contractAddress,
-          decimals: parseInt(addressToken.decimals),
-          name: addressToken.name,
-          symbol: addressToken.symbol
-        };
-        this.tokens.push(token);
+        //check if token already exist
+        let exist = this.tokenExist(addressToken.contractAddress);
+        if(!exist) {
+          let token = {
+            contractAddress: addressToken.contractAddress,
+            decimals: parseInt(addressToken.decimals),
+            name: addressToken.name,
+            symbol: addressToken.symbol
+          };
+          this.tokens.push(token);
+        }
       }
     });
     localStorage.setItem("defaultTokens", JSON.stringify(this.tokens));
 
     await this.loadTokensBalances();
+  }
+
+  private tokenExist(tokenContract: any): boolean {
+    for(let i=0; i<this.tokens.length; i++) {
+      if(this.tokens[i].contractAddress == tokenContract) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private async loadTokensBalances() {
