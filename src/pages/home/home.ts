@@ -77,7 +77,22 @@ export class HomePage {
    */
   private async loadTokens() {
     this.tokens = JSON.parse(localStorage.getItem("defaultTokens"));
-    console.log(this.tokens);
+
+    let addressTokensList = await this.blockscoutProvider.getTokensList(this.wallet.signingKey.address);
+    console.log(addressTokensList);
+    addressTokensList.result.forEach(addressToken => {
+      if(addressToken.contractAddress != "0xb705b833b2A6413e778c45A4499EE1c048875BF5") {
+        let token = {
+          contractAddress: addressToken.contractAddress,
+          decimals: parseInt(addressToken.decimals),
+          name: addressToken.name,
+          symbol: addressToken.symbol
+        };
+        this.tokens.push(token);
+      }
+    });
+    localStorage.setItem("defaultTokens", JSON.stringify(this.tokens));
+
     await this.loadTokensBalances();
   }
 
