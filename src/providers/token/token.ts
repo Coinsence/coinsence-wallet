@@ -13,6 +13,29 @@ export class TokenProvider {
     console.log(erc20Abi);
   }
 
+  public getInfo(contractAddress: string, provider: any) : Promise<any> {
+    let tokenContract = new ethers.Contract(contractAddress, erc20Abi, provider);
+
+    return new Promise(async (resolve, reject) => {
+      let result = {
+        name: "",
+        symbol: "",
+        decimals: 18
+      };
+
+      try {
+        result.name = await tokenContract.name();
+        result.symbol = await tokenContract.symbol();
+        result.decimals = await tokenContract.decimals();
+
+        resolve(result);
+      }
+      catch(e) {
+        reject(e);
+      }
+    });
+  }
+
   public getBalance(walletAddress: string, contractAddress: string, provider: any) : Promise<any> {
     let tokenContract = new ethers.Contract(contractAddress, erc20Abi, provider);
 

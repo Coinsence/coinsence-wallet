@@ -39,4 +39,4 @@ src/environments/
 coinsence.keystore
 coinsence.keystore.old
 
-.gradle
+.gradle/
