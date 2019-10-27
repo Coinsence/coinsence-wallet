@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, ModalController, AlertController, ToastController } from 'ionic-angular';
 import { EtherProvider } from '../../providers/ether/ether';
 import { TokenProvider } from '../../providers/token/token';
-import { BlockscoutProvider } from '../../providers/blockscout/blockscout';
 import * as ColorHash from 'color-hash/dist/color-hash.js'
 
 @IonicPage()
@@ -34,8 +33,7 @@ export class HomePage {
     private alertCtrl: AlertController,
     public toastCtrl: ToastController,
     private etherProvider: EtherProvider,
-    private tokenProvider: TokenProvider,
-    private blockscoutProvider: BlockscoutProvider
+    private tokenProvider: TokenProvider
   ) {
   }
 
@@ -79,8 +77,7 @@ export class HomePage {
     this.tokens = JSON.parse(localStorage.getItem("defaultTokens"));
 
     //get wallet tokens list
-    let addressTokensList = await this.blockscoutProvider.getTokensList(this.wallet.signingKey.address);
-    console.log(addressTokensList);
+    /*let addressTokensList = await this.blockscoutProvider.getTokensList(this.wallet.signingKey.address);
     addressTokensList.result.forEach(addressToken => {
       //check if token is erc20 and if token is not CCC token
       if((addressToken.type == "ERC-20") && (addressToken.contractAddress != "0xb705b833b2a6413e778c45a4499ee1c048875bf5")) {
@@ -97,7 +94,7 @@ export class HomePage {
         }
       }
     });
-    localStorage.setItem("defaultTokens", JSON.stringify(this.tokens));
+    localStorage.setItem("defaultTokens", JSON.stringify(this.tokens));*/
 
     await this.loadTokensBalances();
   }
@@ -148,17 +145,15 @@ export class HomePage {
         //get contract address
         const tokenAddress = ethAddress.split(":").pop();
 
-        //get token info
-        let tokenInfo = await this.blockscoutProvider.getTokenInfo(tokenAddress);
+        this.tokenProvider.getInfo(tokenAddress, this.provider).then(async(tokenInfo) => {
+          console.log(tokenInfo);
 
-        // if token address exist
-        if(tokenInfo.status != "0") {
           //update default tokens item
           let token = {
-            contractAddress: tokenInfo.result.contractAddress,
-            decimals: tokenInfo.result.decimals,
-            name: tokenInfo.result.name,
-            symbol: tokenInfo.result.symbol
+            contractAddress: tokenAddress,
+            decimals: tokenInfo.decimals,
+            name: tokenInfo.name,
+            symbol: tokenInfo.symbol
           };
           // add token to tokens list
           this.tokens.push(token);
@@ -170,10 +165,9 @@ export class HomePage {
 
           //Create event listener for added token
           this.tokenProvider.setTokenListener(this.wallet.signingKey.address, token, this.provider);
-        }
-        else {
-          this.permissionDeniedToast(tokenInfo.message);
-        }
+        }, (err) => {
+          this.permissionDeniedToast("Error");
+        });
       }
       else {
         this.permissionDeniedToast("No address detected!");

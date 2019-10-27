@@ -22,10 +22,6 @@ Setup API's keys inside `src/environments/environment.ts`
     apiEthplorerMainnet: {
       url: 'https://api.ethplorer.io',
       apiKey: ''
-    },
-    apiBlockscoutRinkeby: {
-      url: 'https://blockscout.com/eth/rinkeby/api',
-      apiKey: ''
     }
   }
 ```
