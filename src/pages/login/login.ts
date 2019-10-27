@@ -74,10 +74,14 @@ export class LoginPage {
    */
   createWalletModal() {
     let wallet = this.walletProvider.createWallet();
-    localStorage.setItem("isWallet", "true");
 
-    let createWalletModal = this.modalController.create('CreateWalletPage', { wallet: wallet }, { showBackdrop: false, enableBackdropDismiss: false});
+    let createWalletModal = this.modalController.create('CreateWalletPage', { wallet: wallet }, { showBackdrop: true, enableBackdropDismiss: false});
     createWalletModal.present();
+  }
+
+  importWalletModal() {
+    let importWalletModal = this.modalController.create('ImportWalletPage', {}, { showBackdrop: true, enableBackdropDismiss: false });
+    importWalletModal.present();
   }
 
 }

@@ -78,9 +78,9 @@ export class HomePage {
   private async loadTokens() {
     this.tokens = JSON.parse(localStorage.getItem("defaultTokens"));
 
+    //The below code will be disabled as blockscout API not longer provide endpoints for rinkeby
     //get wallet tokens list
-    let addressTokensList = await this.blockscoutProvider.getTokensList(this.wallet.signingKey.address);
-    console.log(addressTokensList);
+    /*let addressTokensList = await this.blockscoutProvider.getTokensList(this.wallet.signingKey.address);
     addressTokensList.result.forEach(addressToken => {
       //check if token is erc20 and if token is not CCC token
       if((addressToken.type == "ERC-20") && (addressToken.contractAddress != "0xb705b833b2a6413e778c45a4499ee1c048875bf5")) {
@@ -97,7 +97,7 @@ export class HomePage {
         }
       }
     });
-    localStorage.setItem("defaultTokens", JSON.stringify(this.tokens));
+    localStorage.setItem("defaultTokens", JSON.stringify(this.tokens));*/
 
     await this.loadTokensBalances();
   }
