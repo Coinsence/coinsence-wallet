@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
-import { BlockscoutProvider } from '../../providers/blockscout/blockscout';
+import { EtherProvider } from '../../providers/ether/ether';
+import { TokenProvider } from '../../providers/token/token';
 
 @IonicPage()
 @Component({
@@ -24,7 +25,8 @@ export class AddTokenPage {
     public navParams: NavParams,
     public viewCtrl: ViewController,
     public loadingCtrl: LoadingController,
-    private blockscoutProvider: BlockscoutProvider
+    public etherProvider: EtherProvider,
+    public tokenProvider: TokenProvider
   ) {
     this.tokens = this.navParams.get('defaultTokens');
   }
@@ -41,21 +43,21 @@ export class AddTokenPage {
 
     setTimeout(async() => {
       //get token info
-      let tokenInfo = await this.blockscoutProvider.getTokenInfo($event.target.value);
+      this.tokenProvider.getInfo($event.target.value, this.etherProvider.get()).then((tokenInfo) => {
+        console.log(tokenInfo);
 
-      if(tokenInfo.status != "0") {
         this.isValidTokenContract = true;
 
         //update default tokens item
-        this.token.contractAddress = tokenInfo.result.contractAddress,
-        this.token.decimals = tokenInfo.result.decimals,
-        this.token.name = tokenInfo.result.name,
-        this.token.symbol = tokenInfo.result.symbol,
+        this.token.contractAddress = $event.target.value,
+        this.token.decimals = tokenInfo.decimals,
+        this.token.name = tokenInfo.name,
+        this.token.symbol = tokenInfo.symbol,
         this.token.exist = true
-      }
-      else {
-        alert(tokenInfo.message);
-      }
+      }, (err) => {
+        console.log(err);
+        alert("Error");
+      });
 
       loading.dismiss();
     }, 1000);
