@@ -15,6 +15,11 @@
     </ion-refresher-content>
   </ion-refresher>
 
+  <div>
+    <p>{{ this.etherBalance }}</p>
+    <p>{{ this.wallet.signingKey.address }}</p>
+  </div>
+
   <ion-list>
     <ion-item-sliding #item *ngFor="let token of tokens; let i=index">
       <ion-item>

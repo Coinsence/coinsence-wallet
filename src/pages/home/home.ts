@@ -14,6 +14,7 @@ export class HomePage {
   // ether.js provider
   private provider: any;
 
+  public etherBalance: number;
   // wallet object
   public wallet: any;
   // list of tokens
@@ -35,6 +36,8 @@ export class HomePage {
     private etherProvider: EtherProvider,
     private tokenProvider: TokenProvider
   ) {
+
+    this.loadWallet();
   }
 
   ionViewCanEnter(): boolean{
@@ -50,7 +53,7 @@ export class HomePage {
     console.log('ionViewWillEnter HomePage');
 
     this.getProvider();
-    this.loadWallet();
+    this.getEtherBalance();
     this.loadTokens();
 
     this.colorHash = new ColorHash();
@@ -68,6 +71,15 @@ export class HomePage {
    */
   private loadWallet() {
     this.wallet = JSON.parse(localStorage.getItem('wallet'));
+  }
+
+  /**
+   * get ETH balance
+   */
+  private async getEtherBalance() {
+    let weiBalance = await this.provider.getBalance(this.wallet.signingKey.address);
+    this.etherBalance = parseFloat(this.etherProvider.weiToEther(weiBalance));
+    console.log(this.etherBalance);
   }
 
   /**
