@@ -13,4 +13,8 @@ export class EtherProvider {
   public get() {
     return this.etherProvider;
   }
+
+  public weiToEther(wei) : string {
+    return ethers.utils.formatEther(wei);
+  }
 }

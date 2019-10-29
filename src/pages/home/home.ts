@@ -14,6 +14,7 @@ export class HomePage {
   // ether.js provider
   private provider: any;
 
+  public etherBalance: number;
   // wallet object
   public wallet: any;
   // list of tokens
@@ -35,6 +36,8 @@ export class HomePage {
     private etherProvider: EtherProvider,
     private tokenProvider: TokenProvider
   ) {
+
+    this.loadWallet();
   }
 
   ionViewCanEnter(): boolean{
@@ -50,7 +53,7 @@ export class HomePage {
     console.log('ionViewWillEnter HomePage');
 
     this.getProvider();
-    this.loadWallet();
+    this.getEtherBalance();
     this.loadTokens();
 
     this.colorHash = new ColorHash();
@@ -71,11 +74,21 @@ export class HomePage {
   }
 
   /**
+   * get ETH balance
+   */
+  private async getEtherBalance() {
+    let weiBalance = await this.provider.getBalance(this.wallet.signingKey.address);
+    this.etherBalance = parseFloat(this.etherProvider.weiToEther(weiBalance));
+    console.log(this.etherBalance);
+  }
+
+  /**
    * get list of tokens and load balances
    */
   private async loadTokens() {
     this.tokens = JSON.parse(localStorage.getItem("defaultTokens"));
 
+    //The below code will be disabled as blockscout API not longer provide endpoints for rinkeby
     //get wallet tokens list
     /*let addressTokensList = await this.blockscoutProvider.getTokensList(this.wallet.signingKey.address);
     addressTokensList.result.forEach(addressToken => {
@@ -260,5 +273,9 @@ export class HomePage {
     let color = this.colorHash.hex(str);
 
     return color;
+  }
+
+  public showDetails(token: any, balance: number) {
+    this.navCtrl.push('TokenDetailsPage', {token: token, tokenBalance: balance});
   }
 }

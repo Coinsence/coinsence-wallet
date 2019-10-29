@@ -1,34 +1,36 @@
 import { Component } from '@angular/core';
-import { IonicPage, App, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, App, NavController, NavParams, ViewController } from 'ionic-angular';
 import { EtherProvider } from '../../providers/ether/ether';
 import { WalletProvider } from '../../providers/wallet/wallet';
 
+
 @IonicPage()
 @Component({
-  selector: 'page-create-wallet',
-  templateUrl: 'create-wallet.html',
+  selector: 'page-import-wallet',
+  templateUrl: 'import-wallet.html',
 })
-export class CreateWalletPage {
+export class ImportWalletPage {
 
-  public wallet: any;
+  public privateKey: string = "";
 
   constructor(
     public appCtrl: App,
+    public navCtrl: NavController,
     public navParams: NavParams,
     public viewController: ViewController,
     private etherProvider: EtherProvider,
     private walletProvider: WalletProvider
   ) {
-    this.wallet = this.navParams.get('wallet');
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CreateWalletPage');
+    console.log('ionViewDidLoad ImportWalletPage');
   }
 
-  public confirm() {
-    const provider = this.etherProvider.get();
-    const signer = this.walletProvider.getSigner(this.wallet, provider);
+  public importWallet() {
+    let wallet = this.walletProvider.importWalletFromKey(this.privateKey);
+    let provider = this.etherProvider.get();
+    let signer = this.walletProvider.getSigner(wallet, provider);
 
     localStorage.setItem("isWallet", "true");
     localStorage.setItem("wallet", JSON.stringify(signer));

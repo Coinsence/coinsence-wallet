@@ -1,0 +1,35 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Send {{ token.symbol }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>From</ion-label>
+      <ion-input [(ngModel)]="wallet.signingKey.address"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label item-start>To</ion-label>
+      <ion-input [(ngModel)]="to"></ion-input>
+      <ion-icon item-end name="qr-scanner" (click)="scanOnclick($event)"></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Amount</ion-label>
+      <ion-input [(ngModel)]="value"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <button ion-button color="primary" (click)="send()" [disabled]="(wallet.signingKey.address == null) || (to == null) || (value == null)">Send</button>
+      <button ion-button color="secondary" (click)="cancel()">Cancel</button>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

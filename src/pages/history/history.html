@@ -21,9 +21,7 @@
       <ion-card-content>
         <ion-item>
           <ion-avatar item-start>
-            <!--<img src="img/my-avatar.png">-->
             <p id="tokenSymbolLogo" [ngStyle]="{'background-color': symbolBgColor(tx.tokenName)}">{{ tx.tokenSymbol}}</p>
-<!--            <pre>{{ tx | json }}</pre>-->
           </ion-avatar>
           <div>
             <p id="tokenName" *ngIf="walletProvider.checkSumAddress(tx.to) == walletAddress">Received {{ tx.tokenSymbol }}</p>

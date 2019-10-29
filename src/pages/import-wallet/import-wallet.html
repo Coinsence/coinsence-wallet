@@ -1,0 +1,18 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Import wallet</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Wallet private key</ion-label>
+      <ion-input readonly type="string" [(ngModel)]="privateKey"></ion-input>
+    </ion-item>
+    <button ion-button color="primary" (click)="importWallet()">Import</button>
+  </ion-list>
+</ion-content>

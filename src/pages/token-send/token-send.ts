@@ -1,31 +1,53 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
+import { EtherProvider } from '../../providers/ether/ether';
 import { WalletProvider } from '../../providers/wallet/wallet';
+import { TokenProvider } from '../../providers/token/token';
 
 @IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+  selector: 'page-token-send',
+  templateUrl: 'token-send.html',
 })
-export class LoginPage {
+export class TokenSendPage {
+
+  public token: {
+    contractAddress: string,
+    name: string,
+    symbol: string,
+    decimals: number
+  };
+  public tokenBalance: number;
+  public wallet: any;
+  public to: string;
+  public value: number;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public toastCtrl: ToastController,
     private modalController: ModalController,
-    private walletProvider: WalletProvider
+    public etherProvider: EtherProvider,
+    public walletProvider: WalletProvider,
+    public tokenProvider: TokenProvider
   ) {
+    this.token = this.navParams.get('token');
+    this.tokenBalance = this.navParams.get('tokenBalance');
+    this.wallet = this.navParams.get('wallet');
+
+    this.value = 0;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+    console.log('ionViewDidLoad TokenSendPage');
   }
 
   /**
    * open qr-scanner modal
    */
-  scanOnclick() {
+  scanOnclick(e) {
+    e.preventDefault();
+
     let scanQrModal = this.modalController.create('ScanQrPage');
     scanQrModal.onDidDismiss(ethAddress => {
       if(ethAddress != undefined) {
@@ -34,13 +56,7 @@ export class LoginPage {
 
         // check if address is valid
         if(this.walletProvider.checkAddress(address)) {
-          const wallet = { signingKey: { address: address } };
-
-          //save wallet
-          localStorage.setItem("wallet", JSON.stringify(wallet));
-          localStorage.setItem("isWallet", "true");
-
-          this.navCtrl.push('TabsPage');
+          this.to = address;
         }
         else {
           this.permissionDeniedToast('Invalid address!');
@@ -69,19 +85,15 @@ export class LoginPage {
     toast.present();
   }
 
-  /**
-   * open create wallet modal
-   */
-  createWalletModal() {
-    let wallet = this.walletProvider.createWallet();
-
-    let createWalletModal = this.modalController.create('CreateWalletPage', { wallet: wallet }, { showBackdrop: true, enableBackdropDismiss: false});
-    createWalletModal.present();
+  public send() {
+    this.tokenProvider.sendToken(this.token.contractAddress, this.token.decimals, this.etherProvider.get(), this.wallet.signingKey.privateKey, this.to, this.value).then((tx) => {
+      console.log(tx);
+      this.cancel();
+    });
   }
 
-  importWalletModal() {
-    let importWalletModal = this.modalController.create('ImportWalletPage', {}, { showBackdrop: true, enableBackdropDismiss: false });
-    importWalletModal.present();
+  public cancel() {
+    this.navCtrl.pop();
   }
 
 }
