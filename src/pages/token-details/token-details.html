@@ -1,0 +1,26 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{token.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <p>{{ token.symbol }}</p>
+  <p>{{ tokenBalance }}</p>
+  <button ion-button (click)="sendTokenModal()">Send</button>
+
+  <ion-list>
+    <ion-item *ngFor="let tx of txs" (click)="showDetail(tx)">
+      <p>{{ tx.tokenSymbol }}</p>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

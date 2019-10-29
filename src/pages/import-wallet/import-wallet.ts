@@ -11,7 +11,7 @@ import { WalletProvider } from '../../providers/wallet/wallet';
 })
 export class ImportWalletPage {
 
-  public privateKey: string = "0x2f27f97b8406cfa3e44be2fb0ab41117b14a41bcd16ccb684e402815e34897bf";
+  public privateKey: string = "";
 
   constructor(
     public appCtrl: App,
@@ -31,7 +31,6 @@ export class ImportWalletPage {
     let wallet = this.walletProvider.importWalletFromKey(this.privateKey);
     let provider = this.etherProvider.get();
     let signer = this.walletProvider.getSigner(wallet, provider);
-    console.log(signer);
 
     localStorage.setItem("isWallet", "true");
     localStorage.setItem("wallet", JSON.stringify(signer));

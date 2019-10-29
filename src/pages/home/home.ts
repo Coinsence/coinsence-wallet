@@ -274,4 +274,8 @@ export class HomePage {
 
     return color;
   }
+
+  public showDetails(token: any, balance: number) {
+    this.navCtrl.push('TokenDetailsPage', {token: token, tokenBalance: balance});
+  }
 }
