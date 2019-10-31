@@ -1,3 +1,102 @@
 page-token-details {
 
+  .content-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    #token-symbol {
+      width: 80px;
+      height: 80px;
+      line-height: 80px;
+      border-radius: 50%;
+      font-size: 20px;
+      color: white;
+      text-align: center;
+    }
+
+  }
+
+  .content-body {
+
+    margin: 16px -16px 0;
+
+    ion-item {
+      &:first-child {
+        border-top: #f1f1f1 solid 1px;
+      }
+      padding: 0 16px;
+      border-bottom: #f1f1f1 solid 1px;
+    }
+
+    ion-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+
+
+    .token {
+      display: flex;
+      align-items: center;
+    }
+
+    #tx-date {
+      margin-bottom: 4px;
+      color: #999;
+      font-size: 10px;
+      font-weight: 300;
+    }
+
+    #token-symbol {
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      color: white;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    #tx-amount {
+      font-size: 14px;
+      font-weight: 700;
+
+      &.sent {
+        color: #0ab100;
+      }
+
+      &.received {
+        color: #b10000
+      }
+    }
+
+  }
+
+  #token-balance {
+    margin: 0;
+  }
+
+  #token-name {
+
+  }
+
+  #send-btn {
+    margin-top: 10px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    transform: rotate(45deg);
+    font-size: 16px;
+
+    & ~ label {
+      text-transform: uppercase;
+      color: #488aff;
+      font-size: 10px;
+      font-weight: bold;
+    }
+
+  }
+
 }

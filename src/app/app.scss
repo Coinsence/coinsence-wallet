@@ -23,13 +23,7 @@
   &:first-of-type {
     margin-top: 18px;
   }
-  &:not(:last-of-type) {
-    margin-bottom: 18px;
-  }
-  margin-right: 18px;
-  margin-left: 18px;
-  border-radius: 18px;
-  width: auto;
+
   box-shadow: #cecece 0 1px 4px 0;
 }
 
@@ -103,4 +97,8 @@ ion-toast.success .toast-wrapper {
 
 ion-toast.error .toast-wrapper {
 	background: map-get($colors, danger);
+}
+
+.button-md-secondary {
+  background-color: #00b736;
 }
