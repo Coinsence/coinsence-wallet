@@ -42,6 +42,15 @@ export class TokenSendPage {
     console.log('ionViewDidLoad TokenSendPage');
   }
 
+  ionViewCanEnter(): boolean{
+    // can only enter this view if there is an existant wallet in localstorage
+    if(this.wallet.signingKey.privateKey != null){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   /**
    * open qr-scanner modal
    */
@@ -59,11 +68,11 @@ export class TokenSendPage {
           this.to = address;
         }
         else {
-          this.permissionDeniedToast('Invalid address!');
+          this.errorToast('Invalid address!');
         }
       }
       else {
-        this.permissionDeniedToast('No address detected!');
+        this.errorToast('No address detected!');
       }
     })
 
@@ -74,7 +83,7 @@ export class TokenSendPage {
    * show denied permission toast
    * @param message toast message to show
    */
-  permissionDeniedToast(message: string) {
+  errorToast(message: string) {
     let toast = this.toastCtrl.create({
       message: message,
       duration: 3000,
@@ -85,11 +94,21 @@ export class TokenSendPage {
     toast.present();
   }
 
-  public send() {
-    this.tokenProvider.sendToken(this.token.contractAddress, this.token.decimals, this.etherProvider.get(), this.wallet.signingKey.privateKey, this.to, this.value).then((tx) => {
-      console.log(tx);
-      this.cancel();
-    });
+  public async send() {
+    /*
+    let estimation = await this.tokenProvider.estimateTokentransfer(this.token.contractAddress, this.token.decimals, this.etherProvider.get(), this.wallet.signingKey.privateKey, this.to, this.value);
+    console.log(estimation.toNumber());
+    */
+
+    if(this.value > this.tokenBalance)  {
+      this.errorToast(`Insufficient ${this.token.symbol} balance`);
+    }
+    else {
+      this.tokenProvider.sendToken(this.token.contractAddress, this.token.decimals, this.etherProvider.get(), this.wallet.signingKey.privateKey, this.to, this.value).then((tx) => {
+        console.log(tx);
+        this.cancel();
+      });
+    }
   }
 
   public cancel() {

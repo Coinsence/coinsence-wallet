@@ -9,12 +9,20 @@
 
 <ion-content padding>
 
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <div class="content-header">
 
     <p id="token-symbol" [ngStyle]="{'background-color': symbolBgColor(token.name)}">{{ token.symbol}}</p>
     <h1 id="token-balance">{{ tokenBalance }} {{ token.symbol }}</h1>
     <small id="token-name">{{ token.name }}</small>
-    <button id="send-btn" ion-button (click)="sendTokenModal()"><ion-icon name="arrow-up"></ion-icon></button>
+    <button id="send-btn" ion-button (click)="sendTokenModal()" [disabled]="wallet.signingKey.privateKey == null"><ion-icon name="arrow-up"></ion-icon></button>
     <label for="send-btn">Send</label>
 
   </div>

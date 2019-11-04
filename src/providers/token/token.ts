@@ -15,6 +15,26 @@ export class TokenProvider {
     console.log(erc20Abi);
   }
 
+  public estimateTokentransfer(contractAddress: string, decimals: number, provider: any, pk: string, to: string, value: number): Promise<any> {
+    let _wallet = this.walletProvider.importWalletFromKey(pk);
+    let _signer = this.walletProvider.getSigner(_wallet, provider);
+
+    let tokenContract = new ethers.Contract(contractAddress, erc20Abi, provider);
+    let contractWithSigner = tokenContract.connect(_signer);
+
+    return new Promise((resolve, reject) => {
+      let amount = ethers.utils.parseUnits(value.toString(), decimals);
+      console.log(amount);
+
+      contractWithSigner.estimate.transfer(to, amount).then((res) => {
+        resolve(res);
+      }, (err) => {
+        console.log(err);
+        reject(err);
+      });
+    });
+  }
+
   public sendToken(contractAddress: string, decimals: number, provider: any, pk: string, to: string, value: number) : Promise<any> {
     let _wallet = this.walletProvider.importWalletFromKey(pk);
     let _signer = this.walletProvider.getSigner(_wallet, provider);
@@ -53,6 +73,7 @@ export class TokenProvider {
         resolve(result);
       }
       catch(e) {
+        console.log(e);
         reject(e);
       }
     });

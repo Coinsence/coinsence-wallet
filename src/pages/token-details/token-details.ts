@@ -39,10 +39,11 @@ export class TokenDetailsPage {
     public walletProvider: WalletProvider
   ) {
     this.token = this.navParams.get('token');
-    this.wallet = this.navParams.get('wallet');
+
+    this.wallet = JSON.parse(localStorage.getItem("wallet"));
+    this.init();
 
     this.colorHash = new ColorHash();
-    this.init();
   }
 
   ionViewWillEnter() {
@@ -50,8 +51,6 @@ export class TokenDetailsPage {
   }
 
   init() {
-    console.log("init");
-    this.wallet = JSON.parse(localStorage.getItem("wallet"));
     this.walletAddress = this.wallet.signingKey.address;
     this.loadBalance();
     this.getTokenTransactions();
@@ -93,13 +92,6 @@ export class TokenDetailsPage {
   }
 
   public sendTokenModal() {
-    /*let sendModal = this.modalCtrl.create('TokenSendPage', { wallet: this.wallet, token: this.token, tokenBalance: this.tokenBalance });
-    sendModal.onDidDismiss(() => {
-      this.limit = 10;
-      this.getTokenTransactions();
-    });
-    sendModal.present();*/
-
     this.navCtrl.push('TokenSendPage', { wallet: this.wallet, token: this.token, tokenBalance: this.tokenBalance });
   }
 
@@ -110,6 +102,17 @@ export class TokenDetailsPage {
 
   public divideBalance(balance: string, decimals: string): number {
     return parseInt(balance) / 10**parseInt(decimals);
+  }
+
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+
+    setTimeout(async() => {
+      await this.init();
+
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
   }
 
 }
