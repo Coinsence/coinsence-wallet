@@ -15,32 +15,31 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <div>
-    <p>{{ this.etherBalance }}</p>
-    <p>{{ this.wallet.signingKey.address }}</p>
+  <div class="content-header">
+    <h3 id="#ether-balance">{{ etherBalance }}</h3>
+    <small id="#ether-address">{{ wallet.signingKey.address }}</small>
   </div>
+  <div class="content-body">
+    <ion-list>
+      <ion-item-sliding #item *ngFor="let token of tokens; let i=index" (click)="showDetails(token, tokensBalances[i])">
+        <ion-item>
+          <ion-avatar item-start>
+            <p id="tokenSymbolLogo" [ngStyle]="{'background-color': symbolBgColor(token.name)}">{{ token.symbol}}</p>
+          </ion-avatar>
+          <p id="tokenSymbol">{{ tokensBalances[i] }} {{ token.symbol}}</p>
+          <p id="tokenName">{{ token.name }}</p>
+          <ion-icon name="arrow-round-forward" item-end></ion-icon>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button (click)="showRemoveAlert($event, i)" color="danger">
+            <ion-icon name="remove-circle"></ion-icon>
+            Remove
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
 
-  <ion-list>
-    <ion-item-sliding #item *ngFor="let token of tokens; let i=index" (click)="showDetails(token, tokensBalances[i])">
-      <ion-item>
-        <ion-avatar item-start>
-          <p id="tokenSymbolLogo" [ngStyle]="{'background-color': symbolBgColor(token.name)}">{{ token.symbol}}</p>
-        </ion-avatar>
-        <p id="tokenSymbol">{{ token.symbol}}</p>
-        <p id="tokenName">{{ token.name }}</p>
-        <p item-end id="balance">{{ tokensBalances[i] }}</p>
-        <ion-icon name="arrow-round-forward" item-end></ion-icon>
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button (click)="showRemoveAlert($event, i)" color="danger">
-          <ion-icon name="remove-circle"></ion-icon>
-          Remove
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
-
-  <ion-fab bottom right margin #fab>
+    <ion-fab bottom right margin #fab>
       <button ion-fab>
         <ion-icon name="add"></ion-icon>
       </button>
@@ -56,5 +55,7 @@
         </button>
       </ion-fab-list>
     </ion-fab>
+
+  </div>
 
 </ion-content>

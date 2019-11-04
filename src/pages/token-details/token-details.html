@@ -9,18 +9,39 @@
 
 <ion-content padding>
 
-  <p>{{ token.symbol }}</p>
-  <p>{{ tokenBalance }}</p>
-  <button ion-button (click)="sendTokenModal()">Send</button>
+  <div class="content-header">
 
-  <ion-list>
-    <ion-item *ngFor="let tx of txs" (click)="showDetail(tx)">
-      <p>{{ tx.tokenSymbol }}</p>
-    </ion-item>
-  </ion-list>
+    <p id="token-symbol" [ngStyle]="{'background-color': symbolBgColor(token.name)}">{{ token.symbol}}</p>
+    <h1 id="token-balance">{{ tokenBalance }} {{ token.symbol }}</h1>
+    <small id="token-name">{{ token.name }}</small>
+    <button id="send-btn" ion-button (click)="sendTokenModal()"><ion-icon name="arrow-up"></ion-icon></button>
+    <label for="send-btn">Send</label>
 
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading"></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  </div>
+  <div class="content-body">
+
+    <ion-list>
+      <ion-item *ngFor="let tx of txs" (click)="showDetail(tx)">
+        <div class="left">
+          <p id="tx-date">#XX - {{ tx.timeStamp * 1000 | date: 'dd/MM/yyyy' }}, {{ tx.timeStamp * 1000 | date: 'shortTime' }}</p>
+          <div class="token">
+            <p id="token-symbol" [ngStyle]="{'background-color': symbolBgColor(tx.tokenName)}">{{ tx.tokenSymbol}}</p>
+            <p id="token-name" *ngIf="walletProvider.checkSumAddress(tx.to) == walletAddress">Received {{ tx.tokenSymbol }}</p>
+            <p id="token-name" *ngIf="walletProvider.checkSumAddress(tx.from) == walletAddress">Sent {{ tx.tokenSymbol }}</p>
+          </div>
+        </div>
+        <div class="right">
+          <p id="tx-amount" item-end [ngClass]="{'sent' : walletProvider.checkSumAddress(tx.from) == walletAddress, 'received' : walletProvider.checkSumAddress(tx.to) == walletAddress}">
+            {{ divideBalance(tx.value, tx.tokenDecimal) }}
+          </p>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+  </div>
 
 </ion-content>

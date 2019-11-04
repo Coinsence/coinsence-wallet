@@ -1,3 +1,9 @@
 page-token-send {
+  #qr-scanner {
+    z-index: 1;
+  }
+}
 
+ion-app.cameraView page-token-send {
+  display: none;
 }

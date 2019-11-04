@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { EtherProvider } from '../../providers/ether/ether';
 import { TokenProvider } from '../../providers/token/token';
 import { EtherscanProvider } from '../../providers/etherscan/etherscan';
+import { WalletProvider } from "../../providers/wallet/wallet";
+import * as ColorHash from 'color-hash/dist/color-hash.js'
 
 @IonicPage()
 @Component({
@@ -11,6 +13,7 @@ import { EtherscanProvider } from '../../providers/etherscan/etherscan';
 })
 export class TokenDetailsPage {
 
+  public walletAddress: string;
   public token: {
     contractAddress: string,
     name: string,
@@ -24,17 +27,21 @@ export class TokenDetailsPage {
   public page: number = 1;
   public limit: number = 10;
 
+  private colorHash;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
     public etherProvider: EtherProvider,
     public tokenProvider: TokenProvider,
-    public etherscanProvider: EtherscanProvider
+    public etherscanProvider: EtherscanProvider,
+    public walletProvider: WalletProvider
   ) {
     this.token = this.navParams.get('token');
     this.wallet = this.navParams.get('wallet');
 
+    this.colorHash = new ColorHash();
     this.init();
   }
 
@@ -45,7 +52,8 @@ export class TokenDetailsPage {
   init() {
     console.log("init");
     this.wallet = JSON.parse(localStorage.getItem("wallet"));
-    this.loadBalance()
+    this.walletAddress = this.wallet.signingKey.address;
+    this.loadBalance();
     this.getTokenTransactions();
   }
 
@@ -93,6 +101,15 @@ export class TokenDetailsPage {
     sendModal.present();*/
 
     this.navCtrl.push('TokenSendPage', { wallet: this.wallet, token: this.token, tokenBalance: this.tokenBalance });
+  }
+
+  symbolBgColor(str: string) {
+
+    return this.colorHash.hex(str);
+  }
+
+  public divideBalance(balance: string, decimals: string): number {
+    return parseInt(balance) / 10**parseInt(decimals);
   }
 
 }
