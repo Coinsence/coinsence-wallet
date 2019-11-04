@@ -34,7 +34,12 @@ export class LoginPage {
 
         // check if address is valid
         if(this.walletProvider.checkAddress(address)) {
-          const wallet = { signingKey: { address: address } };
+          const wallet = {
+            signingKey: {
+              address: address,
+              privateKey: null
+            }
+          };
 
           //save wallet
           localStorage.setItem("wallet", JSON.stringify(wallet));

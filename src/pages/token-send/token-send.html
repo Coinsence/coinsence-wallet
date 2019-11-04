@@ -28,7 +28,7 @@
 
     <ion-item>
       <button ion-button color="primary" (click)="send()" [disabled]="(wallet.signingKey.address == null) || (to == null) || (value == null)">Send</button>
-      <button ion-button color="secondary" (click)="cancel()">Cancel</button>
+      <button ion-button color="danger" (click)="cancel()">Cancel</button>
     </ion-item>
   </ion-list>
 

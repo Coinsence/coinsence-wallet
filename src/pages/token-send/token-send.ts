@@ -42,6 +42,15 @@ export class TokenSendPage {
     console.log('ionViewDidLoad TokenSendPage');
   }
 
+  ionViewCanEnter(): boolean{
+    // can only enter this view if there is an existant wallet in localstorage
+    if(this.wallet.signingKey.privateKey != null){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   /**
    * open qr-scanner modal
    */
