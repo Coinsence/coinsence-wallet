@@ -58,13 +58,7 @@ export class TokenDetailsPage {
 
   private async loadBalance() {
     let tokenBalance = await this.tokenProvider.getBalance(this.wallet.signingKey.address, this.token.contractAddress, this.etherProvider.get());
-    //this code solve the progblem of the CCC token decimals=0
-    if(this.token.contractAddress != "0xb705b833b2A6413e778c45A4499EE1c048875BF5") {
-      this.tokenBalance = parseInt(tokenBalance) / 10**this.token.decimals;
-    }
-    else {
-      this.tokenBalance = tokenBalance;
-    }
+    this.tokenBalance = parseInt(tokenBalance) / 10**this.token.decimals;
   }
 
   private async getTokenTransactions() {

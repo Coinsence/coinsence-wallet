@@ -82,13 +82,7 @@ export class HomePage {
   private async loadTokensBalances() {
     for(let i=0; i<this.tokens.length; i++) {
       let tokenBalance = await this.tokenProvider.getBalance(this.wallet.signingKey.address, this.tokens[i].contractAddress, this.provider);
-      //this code solve the progblem of the CCC token decimals=0
-      if(this.tokens[i].contractAddress != "0xb705b833b2A6413e778c45A4499EE1c048875BF5") {
-        this.tokensBalances[i] = parseInt(tokenBalance) / 10**this.tokens[i].decimals;
-      }
-      else {
-        this.tokensBalances[i] = tokenBalance;
-      }
+      this.tokensBalances[i] = parseInt(tokenBalance) / 10**this.tokens[i].decimals;    
     }
   }
 
@@ -227,9 +221,7 @@ export class HomePage {
   }
 
   symbolBgColor(str: string) {
-
     let color = this.colorHash.hex(str);
-
     return color;
   }
 
