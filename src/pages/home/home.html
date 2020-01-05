@@ -27,7 +27,7 @@
           </ion-avatar>
           <p id="tokenSymbol">{{ tokensBalances[i] }} {{ token.symbol}}</p>
           <p id="tokenName">{{ token.name }}</p>
-          <ion-icon name="arrow-round-forward" item-end></ion-icon>
+          <ion-icon name="arrow-round-forward" item-end [ngClass]="{'sign-tx-active' : wallet.signingKey.privateKey != null, 'sign-tx-inactive' : wallet.signingKey.privateKey == null}" (click)="sendTokenModal($event, token, tokensBalances[i])"></ion-icon>
         </ion-item>
         <ion-item-options side="right">
           <button ion-button (click)="showRemoveAlert($event, i)" color="danger">
