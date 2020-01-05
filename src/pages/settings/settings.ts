@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, App, ModalController } from 'ionic-angular';
+import { IonicPage, App, ModalController, AlertController } from 'ionic-angular';
 import { EtherProvider } from '../../providers/ether/ether';
 //default tokens list
 import { defaultTokens } from '../../utils/default-tokens';
@@ -20,6 +20,7 @@ export class SettingsPage {
   constructor(
     public appCtrl: App,
     public modalController: ModalController,
+    public alertCtrl: AlertController,
     private etherProvider: EtherProvider
   ) {
     this.loadWallet();
@@ -76,6 +77,15 @@ export class SettingsPage {
     let weiBalance = await this.provider.getBalance(this.wallet.signingKey.address);
     this.etherBalance = parseFloat(this.etherProvider.weiToEther(weiBalance));
     console.log(this.etherBalance);
+  }
+
+  presentEthBalance() {
+    let alert = this.alertCtrl.create({
+      title: 'Balance',
+      subTitle:  `${this.etherBalance}`,
+      buttons: ['Dismiss']
+    });
+    alert.present();
   }
 
 }

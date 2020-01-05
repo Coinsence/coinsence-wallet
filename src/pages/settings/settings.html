@@ -9,9 +9,10 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item>
-      <h3 id="#ether-balance">{{ etherBalance }} ETH</h3>
-    </ion-item>
+    <button ion-item (click)="presentEthBalance()">
+      <ion-icon name="custom-ethereum-icon" item-start color="light"></ion-icon>
+      Ethereum Balance
+    </button>
     <button ion-item (click)="aboutModal()">
       <ion-icon name="information-circle" item-start color="light"></ion-icon>
       About Us
