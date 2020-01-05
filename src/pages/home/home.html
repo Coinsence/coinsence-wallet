@@ -15,9 +15,9 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <div class="content-header">
+  <!--<div class="content-header">
     <small id="#ether-address">{{ wallet.signingKey.address }}</small>
-  </div>
+  </div>-->
   <div class="content-body">
     <ion-list>
       <ion-item-sliding #item *ngFor="let token of tokens; let i=index" (click)="showDetails(token, tokensBalances[i])">
