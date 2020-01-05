@@ -28,6 +28,14 @@ page-home {
     border-radius: 50%;
   }
 
+  .sign-tx-active {
+    color: #488aff;
+  }
+
+  .sign-tx-inactive {
+    color: black;
+  }
+
 }
 
 ion-app.cameraView page-home {

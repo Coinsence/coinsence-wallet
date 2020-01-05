@@ -91,10 +91,6 @@ export class TokenDetailsPage {
     txDetailModal.present();
   }
 
-  public sendTokenModal() {
-    this.navCtrl.push('TokenSendPage', { wallet: this.wallet, token: this.token, tokenBalance: this.tokenBalance });
-  }
-
   symbolBgColor(str: string) {
 
     return this.colorHash.hex(str);

@@ -233,7 +233,26 @@ export class HomePage {
     return color;
   }
 
+  /**
+   * @notice redirect to token details page
+   * @param token token Object
+   * @param balance token balance
+   */
   public showDetails(token: any, balance: number) {
     this.navCtrl.push('TokenDetailsPage', {token: token, tokenBalance: balance});
+  }
+
+  /**
+   * @notice redirect to token send page
+   * @param token token object
+   * @param balance token balance
+   */
+  public sendTokenModal(e, token: any, balance: number) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if(this.wallet.signingKey.privateKey != null) {
+      this.navCtrl.push('TokenSendPage', { wallet: this.wallet, token: token, tokenBalance: balance });
+    }
   }
 }
